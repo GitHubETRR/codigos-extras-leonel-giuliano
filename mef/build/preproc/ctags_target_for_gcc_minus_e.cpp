@@ -1,6 +1,6 @@
 # 1 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 # 13 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
-long time; /* Tiempo desde que se prendió el Arduino */
+unsigned long time; /* Tiempo desde que se prendió el Arduino */
 
 typedef enum {
     BUTTON_UP,
@@ -37,7 +37,6 @@ void loop() {
 
 
 void debounceFSM_init() { // debe cargar el estado inicial
-    digitalWrite(5 /* Led que indica algún tipo de error */, 0x0);
     digitalWrite(3 /* Led que indica si se presiona el botón */, 0x0);
     digitalWrite(8 /* Led que indica si se soltó el botón */, 0x0);
     digitalWrite(3 /* Salida */, 0x0);
@@ -52,7 +51,7 @@ void debounceFSM_init() { // debe cargar el estado inicial
     transición de estados y actualizar las salidas
 
 */
-# 62 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+# 61 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 void debounceFSM_update() {
     switch (buttonState) {
 
@@ -65,7 +64,7 @@ void debounceFSM_update() {
         break;
 
     case BUTTON_FALLING:
-        if(millis() - time <= 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
+        if(millis() - time < 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
 
         buttonState = (digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonPressed() : BUTTON_UP;
         /* En caso de que siga apretado, avanza. Sino, retrocede */
@@ -81,15 +80,18 @@ void debounceFSM_update() {
         break;
 
     case BUTTON_RAISING:
-        if(millis() - time <= 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
+        if(millis() - time < 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
 
         buttonState = (!digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonReleased() : BUTTON_DOWN;
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
 
+        break;
+
     default:
+        debounceFSM_init();
         digitalWrite(5 /* Led que indica algún tipo de error */, 0x1);
         delay(500);
-        debounceFSM_init();
+        digitalWrite(5 /* Led que indica algún tipo de error */, 0x0);
 
         break;
     }

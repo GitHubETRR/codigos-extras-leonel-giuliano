@@ -12,7 +12,7 @@
 
 unsigned long time;                         /* Tiempo desde que se prendió el Arduino */
 
-typedef enum {
+typedef enum {                              /* hooooolaaaaa leeeeeoooo que te vaya bien, buen codigo muy ordenado*/
     BUTTON_UP,
     BUTTON_FALLING,
     BUTTON_DOWN,
