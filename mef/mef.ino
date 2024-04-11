@@ -50,6 +50,7 @@ void debounceFSM_init() {   // debe cargar el estado inicial
     digitalWrite(LED_ERROR, LOW);
     digitalWrite(LED_PRESS, LOW);
     digitalWrite(LED_RELEASE, LOW);
+    digitalWrite(O_PIN0, LOW);
 
     buttonState = BUTTON_UP;
 }
