@@ -1,16 +1,16 @@
-#define I_PIN0 1        /* Entrada de la señal */
-#define O_PIN0 2        /* Salida */
+#define I_PIN0 1                            /* Entrada de la señal */
+#define O_PIN0 2                            /* Salida */
 
-#define READ_I_PIN0  digitalRead(I_PIN0) /* Valor digital de la entrada */
+#define READ_I_PIN0  digitalRead(I_PIN0)    /* Valor digital de la entrada */
 
-#define LED_PRESS 3     /* Led que indica si se presiona el botón */
-#define LED_RELEASE 4   /* Led que indica si se soltó el botón */
-#define LED_ERROR 5     /* Led que indica algún tipo de error */
+#define LED_PRESS 3                         /* Led que indica si se presiona el botón */
+#define LED_RELEASE 4                       /* Led que indica si se soltó el botón */
+#define LED_ERROR 5                         /* Led que indica algún tipo de error */
 
-#define DELAY 40        /* Retardo para considerar la señal */
+#define DELAY 40                            /* Retardo para considerar la señal */
 #define ERROR_TIME 500
 
-long time;              /* Tiempo desde que se prendió el Arduino */
+long time;                                  /* Tiempo desde que se prendió el Arduino */
 
 typedef enum {
     BUTTON_UP,
@@ -39,7 +39,7 @@ void loop() {
 
 
 
-void debounceFSM_init() {	// debe cargar el estado inicial
+void debounceFSM_init() {   // debe cargar el estado inicial
     buttonState = BUTTON_UP;
 
     pinMode(I_PIN0, INPUT);
