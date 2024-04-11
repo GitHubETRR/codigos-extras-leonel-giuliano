@@ -30,6 +30,13 @@ debounceState_t buttonReleased();		// debe invertir el estado del LED2
 
 
 void setup() {
+    pinMode(I_PIN0, INPUT);
+
+    pinMode(O_PIN0, OUTPUT);
+    pinMode(LED_PRESS, OUTPUT);
+    pinMode(LED_RELEASE, OUTPUT);
+    pinMode(LED_ERROR, OUTPUT);
+
     debounceFSM_init();
 }
 
@@ -40,14 +47,11 @@ void loop() {
 
 
 void debounceFSM_init() {   // debe cargar el estado inicial
+    digitalWrite(LED_ERROR, LOW);
+    digitalWrite(LED_PRESS, LOW);
+    digitalWrite(LED_RELEASE, LOW);
+
     buttonState = BUTTON_UP;
-
-    pinMode(I_PIN0, INPUT);
-
-    pinMode(O_PIN0, OUTPUT);
-    pinMode(LED_PRESS, OUTPUT);
-    pinMode(LED_RELEASE, OUTPUT);
-    pinMode(LED_ERROR, OUTPUT);
 }
 
 /* 
@@ -90,8 +94,7 @@ void debounceFSM_update() {
     default:
         digitalWrite(LED_ERROR, HIGH);
         delay(ERROR_TIME);
-        digitalWrite(LED_ERROR, LOW);
-        buttonState = BUTTON_UP;
+        debounceFSM_init();
     
         break;
     }
@@ -99,12 +102,14 @@ void debounceFSM_update() {
 
 debounceState_t buttonPressed() {		// debe invertir el estado del LED1
     digitalWrite(LED_PRESS, !digitalRead(LED_PRESS));
+    digitalWrite(O_PIN0, HIGH);
 
     return BUTTON_DOWN;
 }
 
 debounceState_t buttonReleased() {		// debe invertir el estado del LED2
     digitalWrite(LED_RELEASE, !digitalRead(LED_RELEASE));
+    digitalWrite(O_PIN0, LOW);
 
     return BUTTON_UP;
 }
