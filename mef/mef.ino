@@ -5,6 +5,7 @@
 
 #define LED_PRESS 3     /* Led que indica si se presiona el botón */
 #define LED_RELEASE 4   /* Led que indica si se soltó el botón */
+#define LED_ERROR 5     /* Led que indica algún tipo de error */
 
 #define DELAY 40        /* Retardo para considerar la señal */
 
@@ -19,11 +20,11 @@ typedef enum {
 
 debounceState_t buttonState;
 
-void debounceFSM_init();	// debe cargar el estado inicial
-void debounceFSM_update();	// debe leer las entradas, resolver la lógica de
-					        // transición de estados y actualizar las salidas
-void buttonPressed();		// debe invertir el estado del LED1
-void buttonReleased();		// debe invertir el estado del LED2
+void debounceFSM_init();	            // debe cargar el estado inicial
+void debounceFSM_update();	            // debe leer las entradas, resolver la lógica de
+					                    // transición de estados y actualizar las salidas
+debounceState_t buttonPressed();		// debe invertir el estado del LED1
+debounceState_t buttonReleased();		// debe invertir el estado del LED2
 
 
 
@@ -32,7 +33,7 @@ void setup() {
 }
 
 void loop() {
-
+    debounceFSM_update();
 }
 
 
@@ -45,6 +46,7 @@ void debounceFSM_init() {	// debe cargar el estado inicial
     pinMode(O_PIN0, OUTPUT);
     pinMode(LED_PRESS, OUTPUT);
     pinMode(LED_RELEASE, OUTPUT);
+    pinMode(LED_ERROR, OUTPUT);
 }
 
 /* 
@@ -65,7 +67,7 @@ void debounceFSM_update() {
     case BUTTON_FALLING:
         if(millis() - time <= DELAY) break; /* No hace nada si es menor al DELAY */
 
-        buttonState = (READ_I_PIN0) ? BUTTON_DOWN : BUTTON_UP;
+        buttonState = (READ_I_PIN0) ? buttonPressed() : BUTTON_UP;
         /* En caso de que siga apretado, avanza. Sino, retrocede */
 
         break;
@@ -81,18 +83,24 @@ void debounceFSM_update() {
     case BUTTON_RAISING:
         if(millis() - time <= DELAY) break; /* No hace nada si es menor al DELAY */
 
-        buttonState = (READ_I_PIN0) ? BUTTON_DOWN : BUTTON_UP;
+        buttonState = (!READ_I_PIN0) ? buttonReleased() : BUTTON_DOWN;
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
     
     default:
+
+    
         break;
     }
 }
 
-void buttonPressed() {		// debe invertir el estado del LED1
+debounceState_t buttonPressed() {		// debe invertir el estado del LED1
     digitalWrite(LED_PRESS, !digitalRead(LED_PRESS));
+
+    return BUTTON_DOWN;
 }
 
-void buttonReleased() {		// debe invertir el estado del LED2
+debounceState_t buttonReleased() {		// debe invertir el estado del LED2
     digitalWrite(LED_RELEASE, !digitalRead(LED_RELEASE));
+
+    return BUTTON_UP;
 }
