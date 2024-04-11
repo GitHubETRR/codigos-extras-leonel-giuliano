@@ -8,6 +8,7 @@
 #define LED_ERROR 5     /* Led que indica algún tipo de error */
 
 #define DELAY 40        /* Retardo para considerar la señal */
+#define ERROR_TIME 500
 
 long time;              /* Tiempo desde que se prendió el Arduino */
 
@@ -87,7 +88,10 @@ void debounceFSM_update() {
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
     
     default:
-
+        digitalWrite(LED_ERROR, HIGH);
+        delay(ERROR_TIME);
+        digitalWrite(LED_ERROR, LOW);
+        buttonState = BUTTON_UP;
     
         break;
     }
