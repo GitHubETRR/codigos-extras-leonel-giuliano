@@ -1,5 +1,5 @@
 # 1 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
-# 12 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+# 13 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 long time; /* Tiempo desde que se prendió el Arduino */
 
 typedef enum {
@@ -20,6 +20,13 @@ debounceState_t buttonReleased(); // debe invertir el estado del LED2
 
 
 void setup() {
+    pinMode(2 /* Entrada de la señal */, 0x0);
+
+    pinMode(3 /* Salida */, 0x1);
+    pinMode(3 /* Led que indica si se presiona el botón */, 0x1);
+    pinMode(8 /* Led que indica si se soltó el botón */, 0x1);
+    pinMode(5 /* Led que indica algún tipo de error */, 0x1);
+
     debounceFSM_init();
 }
 
@@ -30,14 +37,12 @@ void loop() {
 
 
 void debounceFSM_init() { // debe cargar el estado inicial
+    digitalWrite(5 /* Led que indica algún tipo de error */, 0x0);
+    digitalWrite(3 /* Led que indica si se presiona el botón */, 0x0);
+    digitalWrite(8 /* Led que indica si se soltó el botón */, 0x0);
+    digitalWrite(3 /* Salida */, 0x0);
+
     buttonState = BUTTON_UP;
-
-    pinMode(1 /* Entrada de la señal */, 0x0);
-
-    pinMode(2 /* Salida */, 0x1);
-    pinMode(3 /* Led que indica si se presiona el botón */, 0x1);
-    pinMode(4 /* Led que indica si se soltó el botón */, 0x1);
-    pinMode(5 /* Led que indica algún tipo de error */, 0x1);
 }
 
 /* 
@@ -47,12 +52,12 @@ void debounceFSM_init() { // debe cargar el estado inicial
     transición de estados y actualizar las salidas
 
 */
-# 56 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+# 62 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 void debounceFSM_update() {
     switch (buttonState) {
 
     case BUTTON_UP:
-        if(!digitalRead(1 /* Entrada de la señal */) /* Valor digital de la entrada */) break;
+        if(!digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) break;
 
         buttonState = BUTTON_FALLING;
         time = millis(); /* Inicia un tiempo para comparar según el DELAY */
@@ -62,13 +67,13 @@ void debounceFSM_update() {
     case BUTTON_FALLING:
         if(millis() - time <= 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
 
-        buttonState = (digitalRead(1 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonPressed() : BUTTON_UP;
+        buttonState = (digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonPressed() : BUTTON_UP;
         /* En caso de que siga apretado, avanza. Sino, retrocede */
 
         break;
 
     case BUTTON_DOWN:
-        if(digitalRead(1 /* Entrada de la señal */) /* Valor digital de la entrada */) break;
+        if(digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) break;
 
         buttonState = BUTTON_RAISING;
         time = millis(); /* Inicia un tiempo para comparar según el DELAY */
@@ -78,11 +83,13 @@ void debounceFSM_update() {
     case BUTTON_RAISING:
         if(millis() - time <= 40 /* Retardo para considerar la señal */) break; /* No hace nada si es menor al DELAY */
 
-        buttonState = (!digitalRead(1 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonReleased() : BUTTON_DOWN;
+        buttonState = (!digitalRead(2 /* Entrada de la señal */) /* Valor digital de la entrada */) ? buttonReleased() : BUTTON_DOWN;
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
 
     default:
-
+        digitalWrite(5 /* Led que indica algún tipo de error */, 0x1);
+        delay(500);
+        debounceFSM_init();
 
         break;
     }
@@ -90,12 +97,14 @@ void debounceFSM_update() {
 
 debounceState_t buttonPressed() { // debe invertir el estado del LED1
     digitalWrite(3 /* Led que indica si se presiona el botón */, !digitalRead(3 /* Led que indica si se presiona el botón */));
+    digitalWrite(3 /* Salida */, 0x1);
 
     return BUTTON_DOWN;
 }
 
 debounceState_t buttonReleased() { // debe invertir el estado del LED2
-    digitalWrite(4 /* Led que indica si se soltó el botón */, !digitalRead(4 /* Led que indica si se soltó el botón */));
+    digitalWrite(8 /* Led que indica si se soltó el botón */, !digitalRead(8 /* Led que indica si se soltó el botón */));
+    digitalWrite(3 /* Salida */, 0x0);
 
     return BUTTON_UP;
 }

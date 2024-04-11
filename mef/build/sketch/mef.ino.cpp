@@ -1,17 +1,18 @@
 #include <Arduino.h>
 #line 1 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
-#define I_PIN0 1        /* Entrada de la señal */
-#define O_PIN0 2        /* Salida */
+#define I_PIN0 2                            /* Entrada de la señal */
+#define O_PIN0 3                            /* Salida */
 
-#define READ_I_PIN0  digitalRead(I_PIN0) /* Valor digital de la entrada */
+#define READ_I_PIN0  digitalRead(I_PIN0)    /* Valor digital de la entrada */
 
-#define LED_PRESS 3     /* Led que indica si se presiona el botón */
-#define LED_RELEASE 4   /* Led que indica si se soltó el botón */
-#define LED_ERROR 5     /* Led que indica algún tipo de error */
+#define LED_PRESS 3                         /* Led que indica si se presiona el botón */
+#define LED_RELEASE 8                       /* Led que indica si se soltó el botón */
+#define LED_ERROR 5                         /* Led que indica algún tipo de error */
 
-#define DELAY 40        /* Retardo para considerar la señal */
+#define DELAY 40                            /* Retardo para considerar la señal */
+#define ERROR_TIME 500
 
-long time;              /* Tiempo desde que se prendió el Arduino */
+long time;                                  /* Tiempo desde que se prendió el Arduino */
 
 typedef enum {
     BUTTON_UP,
@@ -30,12 +31,19 @@ debounceState_t buttonReleased();		// debe invertir el estado del LED2
 
 
 
-#line 31 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+#line 32 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 void setup();
-#line 35 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+#line 43 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 void loop();
-#line 31 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
+#line 32 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\mef.ino"
 void setup() {
+    pinMode(I_PIN0, INPUT);
+
+    pinMode(O_PIN0, OUTPUT);
+    pinMode(LED_PRESS, OUTPUT);
+    pinMode(LED_RELEASE, OUTPUT);
+    pinMode(LED_ERROR, OUTPUT);
+
     debounceFSM_init();
 }
 
@@ -45,15 +53,13 @@ void loop() {
 
 
 
-void debounceFSM_init() {	// debe cargar el estado inicial
+void debounceFSM_init() {   // debe cargar el estado inicial
+    digitalWrite(LED_ERROR, LOW);
+    digitalWrite(LED_PRESS, LOW);
+    digitalWrite(LED_RELEASE, LOW);
+    digitalWrite(O_PIN0, LOW);
+
     buttonState = BUTTON_UP;
-
-    pinMode(I_PIN0, INPUT);
-
-    pinMode(O_PIN0, OUTPUT);
-    pinMode(LED_PRESS, OUTPUT);
-    pinMode(LED_RELEASE, OUTPUT);
-    pinMode(LED_ERROR, OUTPUT);
 }
 
 /* 
@@ -94,7 +100,9 @@ void debounceFSM_update() {
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
     
     default:
-
+        digitalWrite(LED_ERROR, HIGH);
+        delay(ERROR_TIME);
+        debounceFSM_init();
     
         break;
     }
@@ -102,12 +110,14 @@ void debounceFSM_update() {
 
 debounceState_t buttonPressed() {		// debe invertir el estado del LED1
     digitalWrite(LED_PRESS, !digitalRead(LED_PRESS));
+    digitalWrite(O_PIN0, HIGH);
 
     return BUTTON_DOWN;
 }
 
 debounceState_t buttonReleased() {		// debe invertir el estado del LED2
     digitalWrite(LED_RELEASE, !digitalRead(LED_RELEASE));
+    digitalWrite(O_PIN0, LOW);
 
     return BUTTON_UP;
 }
