@@ -10,7 +10,7 @@
 #define DELAY 40                            /* Retardo para considerar la señal */
 #define ERROR_TIME 500
 
-unsigned long time;                                  /* Tiempo desde que se prendió el Arduino */
+unsigned long time;                         /* Tiempo desde que se prendió el Arduino */
 
 typedef enum {
     BUTTON_UP,
@@ -70,7 +70,7 @@ void debounceFSM_update() {
         break;
 
     case BUTTON_FALLING:
-        if((millis() - time) < DELAY) break; /* No hace nada si es menor al DELAY */
+        if(millis() - time < DELAY) break; /* No hace nada si es menor al DELAY */
 
         buttonState = (READ_I_PIN0) ? buttonPressed() : BUTTON_UP;
         /* En caso de que siga apretado, avanza. Sino, retrocede */
@@ -86,7 +86,7 @@ void debounceFSM_update() {
         break;
 
     case BUTTON_RAISING:
-        if((millis() - time) < DELAY) break; /* No hace nada si es menor al DELAY */
+        if(millis() - time < DELAY) break; /* No hace nada si es menor al DELAY */
 
         buttonState = (!READ_I_PIN0) ? buttonReleased() : BUTTON_DOWN;
         /* En caso de que no se aprete, vuelve al estado inicial. Sino, retrocede */
