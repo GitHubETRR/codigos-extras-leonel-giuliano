@@ -1,0 +1,8 @@
+#line 1 "C:\\Users\\lgiuliano\\OneDrive\\Lenguajes\\C\\extra\\mef\\.vscode\\arduino.json"
+{
+    "sketch": "mef.ino",
+    "board": "arduino:avr:uno",
+    "output": "./build",
+    "programmer": "arduinoisp",
+    "port": "COM6"
+}
