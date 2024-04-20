@@ -9,6 +9,6 @@ Modos de operación:
 * Eliminar producto según nombre
 * Eliminar lista
 
-Diagrama de flujo representativo en [Whimsical](https://whimsical.com/lista-de-compras-UEkoxwaM5yYPnSzmKzQszh)
+Diagrama de flujo representativo en [Miro](https://miro.com/app/board/uXjVKR56HN4=/?share_link_id=546805418439)
 
-![Diagrama de Flujo](./design/diagrama.png)
+![Diagrama de Flujo](./design/diagrama.jpg)
