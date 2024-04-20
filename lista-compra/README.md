@@ -9,4 +9,6 @@ Modos de operación:
 * Eliminar producto según nombre
 * Eliminar lista
 
+Diagrama de flujo representativo en [Whimsical](https://whimsical.com/lista-de-compras-UEkoxwaM5yYPnSzmKzQszh)
+
 ![Diagrama de Flujo](./design/diagrama.png)
