@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "../ascii/ascii.h"
 
@@ -32,9 +33,55 @@ typedef struct product {
 }product_t;
 
 typedef enum {
-    AGREGAR,
+    AGREGAR = 1,
     IMPRIMIR,
     TACHAR,
     ELIMINAR,
     FIN
 }menuState_t;
+
+void menu(menuState_t *);
+void addProduct(void);
+
+product_t *list = NULL;
+
+
+
+int main() {
+    menuState_t menuState;
+
+    do { menu(&menuState); } while(menuState != FIN);
+
+    return 0;
+}
+
+
+
+void menu(menuState_t *menuState) {
+    printf("Selecciona: ");
+    scanf(" %u", menuState);
+
+    switch (*menuState) {
+    case AGREGAR:
+        addProduct();
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+void addProduct() {
+    product_t *newProduct;
+    newProduct = malloc(sizeof(product_t));
+
+    printf("Inserte nombre: ");
+    scanf(" %[^\n]%*c", newProduct->name);
+
+    printf("Inserte cantidad: ");
+    scanf(" %hhu", &newProduct->cant);
+
+    newProduct->next = list;
+    list = newProduct;
+}
