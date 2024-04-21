@@ -42,6 +42,7 @@ typedef enum {
 
 void menu(menuState_t *);
 void addProduct(void);
+void printProduct(void);
 
 product_t *list = NULL;
 
@@ -66,6 +67,10 @@ void menu(menuState_t *menuState) {
         addProduct();
         break;
 
+        case IMPRIMIR:
+            printProduct();
+            break;
+
     default:
         break;
     }
@@ -79,7 +84,7 @@ void addProduct() {
     scanf(" %[^\n]%*c", newProduct->name);
 
     printf("Inserte cantidad: ");
-    scanf(" %hhu", &newProduct->cant);
+    scanf("%hhu", &newProduct->cant);
 
     newProduct->next = list;
     list = newProduct;
@@ -98,10 +103,10 @@ void printProduct() {
 
     while(!IMPRIMIR_FIN) {
         printf("Producto: %s\n", iProduct->name);
-        printf("Cantidad: %hhu\n", iProduct->cant);
+        printf("Cantidad: %d\n", iProduct->cant);
 
         iProduct = iProduct->next;
 
-        if(iProduct->next == NULL) IMPRIMIR_FIN = 1;
+        if(iProduct == NULL) IMPRIMIR_FIN = 1;
     }
 }
