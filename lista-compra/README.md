@@ -11,4 +11,4 @@ Modos de operación:
 
 Diagrama de flujo representativo en [Miro](https://miro.com/app/board/uXjVKR56HN4=/?share_link_id=546805418439)
 
-![Diagrama de Flujo](./design/diagrama.jpg)
+![Diagrama de Flujo](./design/lista-compra.jpg)

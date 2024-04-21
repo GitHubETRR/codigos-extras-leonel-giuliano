@@ -67,9 +67,9 @@ void menu(menuState_t *menuState) {
         addProduct();
         break;
 
-        case IMPRIMIR:
-            printProduct();
-            break;
+    case IMPRIMIR:
+        printProduct();
+        break;
 
     default:
         break;
@@ -93,13 +93,13 @@ void addProduct() {
 void printProduct() {
     IMPRIMIR_FIN = 0;
 
-    product_t *iProduct;
-    iProduct = list;
-
     if(list == NULL) {
         printf("No hay ning%cn producto\n", uACENTO);
         return;
     }
+
+    product_t *iProduct;
+    iProduct = list;
 
     while(!IMPRIMIR_FIN) {
         printf("Producto: %s\n", iProduct->name);
