@@ -64,7 +64,6 @@ void menu(menuState_t *menuState) {
     switch (*menuState) {
     case AGREGAR:
         addProduct();
-
         break;
 
     default:
@@ -84,4 +83,25 @@ void addProduct() {
 
     newProduct->next = list;
     list = newProduct;
+}
+
+void printProduct() {
+    IMPRIMIR_FIN = 0;
+
+    product_t *iProduct;
+    iProduct = list;
+
+    if(list == NULL) {
+        printf("No hay ning%cn producto\n", uACENTO);
+        return;
+    }
+
+    while(!IMPRIMIR_FIN) {
+        printf("Producto: %s\n", iProduct->name);
+        printf("Cantidad: %hhu\n", iProduct->cant);
+
+        iProduct = iProduct->next;
+
+        if(iProduct->next == NULL) IMPRIMIR_FIN = 1;
+    }
 }
