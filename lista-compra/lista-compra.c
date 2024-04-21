@@ -42,7 +42,8 @@ typedef enum {
 
 void menu(menuState_t *);
 void addProduct(void);
-void printProduct(void);
+void printList(void);
+void delProduct(void);
 
 product_t *list = NULL;
 
@@ -68,7 +69,11 @@ void menu(menuState_t *menuState) {
         break;
 
     case IMPRIMIR:
-        printProduct();
+        printList();
+        break;
+
+    case TACHAR:
+        delProduct();
         break;
 
     default:
@@ -84,13 +89,13 @@ void addProduct() {
     scanf(" %[^\n]%*c", newProduct->name);
 
     printf("Inserte cantidad: ");
-    scanf("%hhu", &newProduct->cant);
+    scanf(" %hhu", &newProduct->cant);
 
     newProduct->next = list;
     list = newProduct;
 }
 
-void printProduct() {
+void printList() {
     IMPRIMIR_FIN = 0;
 
     if(list == NULL) {
@@ -108,5 +113,45 @@ void printProduct() {
         iProduct = iProduct->next;
 
         if(iProduct == NULL) IMPRIMIR_FIN = 1;
+    }
+}
+
+void delProduct() {
+    TACHAR_FIN = 0;
+
+    if(list == NULL) {
+        printf("No hay ning%cn producto\n", uACENTO);
+        return;
+    }
+
+    char search[NAME_MAX];
+    product_t *iProduct, *beforeProduct;
+    iProduct = list;
+    beforeProduct = NULL;
+
+    printf(
+        "%cQu%c producto busca?: ",
+        INTERROGACION,
+        eACENTO
+    );
+    scanf(" %[^\n]%*c", search);
+
+    while(!TACHAR_FIN) {
+        if(strcmp(iProduct->name, search)) {
+            beforeProduct = iProduct;
+            iProduct = iProduct->next;
+
+            if(iProduct != NULL) continue;
+
+            printf("No se encontr%c el producto\n", oACENTO);
+            return;
+        } else {
+            if(iProduct == list) list = iProduct->next;
+            if(beforeProduct != NULL) beforeProduct->next = iProduct->next;
+            
+            free(iProduct);
+            printf("Tachado\n");
+            TACHAR_FIN = 1;
+        }
     }
 }
