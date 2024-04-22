@@ -138,7 +138,7 @@ void delProduct() {
 
     while(!TACHAR_FIN) {
         if(strcmp(iProduct->name, search)) {
-            beforeProduct = iProduct;
+            beforeProduct = iProduct;       /* CAMBIAR EN DIAGRAMA */
             iProduct = iProduct->next;
 
             if(iProduct != NULL) continue;
@@ -147,8 +147,8 @@ void delProduct() {
             return;
         } else {
             if(iProduct == list) list = iProduct->next;
-            if(beforeProduct != NULL) beforeProduct->next = iProduct->next;
-            
+            if(beforeProduct != NULL) beforeProduct->next = iProduct->next; /* CAMBIAR EN DIAGRAMA */
+
             free(iProduct);
             printf("Tachado\n");
             TACHAR_FIN = 1;
