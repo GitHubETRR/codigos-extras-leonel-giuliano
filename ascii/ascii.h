@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 /* Letras */
 
 #define aCIRCUNFLEJO 131 // â
