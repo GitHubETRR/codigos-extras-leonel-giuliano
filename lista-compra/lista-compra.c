@@ -230,6 +230,8 @@ void delList() {
 }
 
 void freeMemory() {
+    ELIMINAR_FIN = 0;
+
     while(!ELIMINAR_FIN) {
         product_t *delProduct;
         delProduct = list;
