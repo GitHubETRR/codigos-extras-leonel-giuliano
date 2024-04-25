@@ -45,6 +45,7 @@ void menu(menuState_t *);
 void addProduct(void);
 void printList(void);
 void delProduct(void);
+void freeMemory(void);
 void delList(void);
 
 product_t *list = NULL;
@@ -56,6 +57,7 @@ int main() {
 
     welcome();
     do { menu(&menuState); } while(menuState != FIN);
+    if(list != NULL) freeMemory();
 
     return 0;
 }
@@ -223,6 +225,11 @@ void delList() {
         return;
     }
 
+    freeMemory();
+    printf("La lista ha sido eliminada\n");
+}
+
+void freeMemory() {
     while(!ELIMINAR_FIN) {
         product_t *delProduct;
         delProduct = list;
@@ -230,9 +237,6 @@ void delList() {
 
         free(delProduct);
 
-        if(list != NULL) continue;
-
-        ELIMINAR_FIN = 1;
-        printf("La lista ha sido eliminada\n");
+        if(list == NULL) ELIMINAR_FIN = 1;
     }
 }
