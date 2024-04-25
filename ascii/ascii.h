@@ -60,6 +60,9 @@
 #define U_GRAVE 235 // Ù
 #define U_ACENTO 233 // Ú
 
+#define nTILDE 164  // ñ
+#define N_TILDE 165  // Ñ
+
 #define yDIERESIS 152 // ÿ
 #define yACENTO 236 // ý
 
