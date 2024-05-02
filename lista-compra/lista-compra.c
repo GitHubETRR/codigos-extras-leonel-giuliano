@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
-#include <stdlib.h>
 
 #include "./lista-compra.h"
 #include "../ascii/ascii.h"
