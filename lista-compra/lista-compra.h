@@ -37,11 +37,9 @@ typedef enum {
 }menuState_t;
 
 void welcome(void);
-void menu(menuState_t *);
-void addProduct(void);
-void printList(void);
-void delProduct(void);
-void freeMemory(void);
-void delList(void);
-
-extern product_t *list;
+void menu(menuState_t *, product_t **);
+void addProduct(product_t **);
+void printList(product_t **);
+void delProduct(product_t **);
+void freeMemory(product_t **);
+void delList(product_t **);

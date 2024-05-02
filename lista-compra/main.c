@@ -3,11 +3,12 @@
 #include "./lista-compra.h"
 
 int main() {
+    product_t *list = NULL;
     menuState_t menuState;
 
     welcome();
-    do { menu(&menuState); } while(menuState != FIN);
-    if(list != NULL) freeMemory();
+    do { menu(&menuState, &list); } while(menuState != FIN);
+    if(list != NULL) freeMemory((product_t **)list);
 
     return 0;
 }

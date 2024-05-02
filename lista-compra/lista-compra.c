@@ -4,8 +4,6 @@
 #include "./lista-compra.h"
 #include "../ascii/ascii.h"
 
-product_t *list = NULL;
-
 void welcome() {
     printf("Bienvenido al programa\n");
     printf(
@@ -15,7 +13,7 @@ void welcome() {
     );
 }
 
-void menu(menuState_t *menuState) {
+void menu(menuState_t *menuState, product_t **list) {
     printf("\n     -----   MENU   -----\n\n");
     printf(
         "Opci%cn %u: Agrega un producto al inicio de la lista (nombre y cantidad)\n",
@@ -49,19 +47,19 @@ void menu(menuState_t *menuState) {
 
     switch (*menuState) {
     case AGREGAR:
-        addProduct();
+        addProduct(list);
         break;
 
     case IMPRIMIR:
-        printList();
+        printList(list);
         break;
 
     case TACHAR:
-        delProduct();
+        delProduct(list);
         break;
 
     case ELIMINAR:
-        delList();
+        delList(list);
         break;
 
     case FIN:
@@ -77,7 +75,7 @@ void menu(menuState_t *menuState) {
     }
 }
 
-void addProduct() {
+void addProduct(product_t **list) {
     product_t *newProduct;
     newProduct = malloc(sizeof(product_t));
 
@@ -87,8 +85,8 @@ void addProduct() {
     printf("Anote la cantidad a comprar: ");
     scanf(" %hhu", &newProduct->cant);
 
-    newProduct->next = list;
-    list = newProduct;
+    newProduct->next = (*list);
+    (*list) = newProduct;
 
     printf(
         "\nEl producto '%s' fue a%cadido\n",
@@ -97,16 +95,16 @@ void addProduct() {
     );
 }
 
-void printList() {
+void printList(product_t **list) {
     IMPRIMIR_FIN = 0;
 
-    if(list == NULL) {
+    if((*list) == NULL) {
         printf("No hay ning%cn producto en la lista\n", uACENTO);
         return;
     }
 
     product_t *iProduct;
-    iProduct = list;
+    iProduct = (*list);
 
     printf("LISTA:\n");
 
@@ -121,17 +119,17 @@ void printList() {
     }
 }
 
-void delProduct() {
+void delProduct(product_t **list) {
     TACHAR_FIN = 0;
 
-    if(list == NULL) {
+    if((*list) == NULL) {
         printf("No hay ning%cn producto en la lista\n", uACENTO);
         return;
     }
 
     char search[NAME_MAX];
     product_t *iProduct, *beforeProduct;
-    iProduct = list;
+    iProduct = (*list);
     beforeProduct = NULL;
 
     printf(
@@ -152,7 +150,7 @@ void delProduct() {
             printf("No se encontr%c el producto\n", oACENTO);
             return;
         } else {
-            if(iProduct == list) list = iProduct->next;
+            if(iProduct == (*list)) (*list) = iProduct->next;
             if(beforeProduct != NULL) beforeProduct->next = iProduct->next;
 
             printf("El producto '%s' ha sido tachado\n", iProduct->name);
@@ -163,26 +161,26 @@ void delProduct() {
     }
 }
 
-void delList() {
-    if(list == NULL) {
+void delList(product_t **list) {
+    if((*list) == NULL) {
         printf("No hay ning%cn producto en la lista\n", uACENTO);
         return;
     }
 
-    freeMemory();
+    freeMemory(list);
     printf("La lista ha sido eliminada\n");
 }
 
-void freeMemory() {
+void freeMemory(product_t **list) {
     ELIMINAR_FIN = 0;
 
     while(!ELIMINAR_FIN) {
         product_t *delProduct;
-        delProduct = list;
-        list = delProduct->next;
+        delProduct = (*list);
+        (*list) = delProduct->next;
 
         free(delProduct);
 
-        if(list == NULL) ELIMINAR_FIN = 1;
+        if((*list) == NULL) ELIMINAR_FIN = 1;
     }
 }
