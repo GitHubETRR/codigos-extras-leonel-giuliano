@@ -8,7 +8,7 @@ int main() {
 
     welcome();
     do { menu(&menuState, &list); } while(menuState != FIN);
-    if(list != NULL) freeMemory((product_t **)list);
+    if(list != NULL) freeMemory(&list);
 
     return 0;
 }

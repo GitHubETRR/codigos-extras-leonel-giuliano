@@ -16,7 +16,7 @@ void welcome() {
 void menu(menuState_t *menuState, product_t **list) {
     FILE *fileList;
 
-    if((fileList = fopen("lista-compra.txt", "w")) == NULL) {
+    if((fileList = fopen("lista-compra.txt", "w+")) == NULL) {
         printf("\nERROR: No se ha podido acceder a %s", fileList);
         (*menuState) = FIN;
 
