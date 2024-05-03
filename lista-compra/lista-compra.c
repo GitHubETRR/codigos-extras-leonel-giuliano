@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "./lista-compra.h"
+#include "./file.h"
 #include "../ascii/ascii.h"
 
 void welcome() {
@@ -14,6 +14,15 @@ void welcome() {
 }
 
 void menu(menuState_t *menuState, product_t **list) {
+    FILE *fileList;
+
+    if((fileList = fopen("lista-compra.txt", "w")) == NULL) {
+        printf("\nERROR: No se ha podido acceder a %s", fileList);
+        (*menuState) = FIN;
+
+        return;     /* Salida del código si no se abre el archivo */
+    }
+
     printf("\n     -----   MENU   -----\n\n");
     printf(
         "Opci%cn %u: Agrega un producto al inicio de la lista (nombre y cantidad)\n",
@@ -47,7 +56,7 @@ void menu(menuState_t *menuState, product_t **list) {
 
     switch (*menuState) {
     case AGREGAR:
-        addProduct(list);
+        addProduct(list, fileList);
         break;
 
     case IMPRIMIR:
@@ -64,6 +73,7 @@ void menu(menuState_t *menuState, product_t **list) {
 
     case FIN:
         printf("%cHasta luego!", EXCLAMACION);
+        fclose(fileList);
 
         break;
 
@@ -75,7 +85,7 @@ void menu(menuState_t *menuState, product_t **list) {
     }
 }
 
-void addProduct(product_t **list) {
+void addProduct(product_t **list, FILE *fileList) {
     product_t *newProduct;
     newProduct = malloc(sizeof(product_t));
 
@@ -87,6 +97,8 @@ void addProduct(product_t **list) {
 
     newProduct->next = (*list);
     (*list) = newProduct;
+
+    fileAddProduct(newProduct, fileList);
 
     printf(
         "\nEl producto '%s' fue a%cadido\n",

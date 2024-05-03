@@ -38,7 +38,7 @@ typedef enum {
 
 void welcome(void);
 void menu(menuState_t *, product_t **);
-void addProduct(product_t **);
+void addProduct(product_t **, FILE *);
 void printList(product_t **);
 void delProduct(product_t **);
 void freeMemory(product_t **);

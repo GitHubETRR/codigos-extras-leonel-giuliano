@@ -1,0 +1,4 @@
+     -----     PRODUCTO 2     -----
+Producto: b
+Cantidad a comprar: 2
+
