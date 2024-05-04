@@ -1,4 +1,4 @@
      -----     PRODUCTO     -----
-Producto: q
-Cantidad a comprar: 3
+Producto: a
+Cantidad a comprar: 30
 
