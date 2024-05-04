@@ -9,7 +9,7 @@ int main() {
     FILE *fileList;
     char *fileName = "lista-compra.txt";
 
-    if((fileList = fopen(fileName, "w+")) == NULL) {
+    if((fileList = fopen(fileName, "w")) == NULL) {
         printf("No se ha podido acceder a '%s'", fileName);
 
         return 1;

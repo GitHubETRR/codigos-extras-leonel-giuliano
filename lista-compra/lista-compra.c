@@ -47,11 +47,11 @@ void menu(menuState_t *menuState, product_t **list, FILE **fileList) {
 
     switch (*menuState) {
     case AGREGAR:
-        addProduct(list, fileList);
+        addProduct(list);
         break;
 
     case IMPRIMIR:
-        printList(list);
+        printList(list, fileList);
         break;
 
     case TACHAR:
@@ -75,7 +75,7 @@ void menu(menuState_t *menuState, product_t **list, FILE **fileList) {
     }
 }
 
-void addProduct(product_t **list, FILE **fileList) {
+void addProduct(product_t **list) {
     product_t *newProduct;
     newProduct = malloc(sizeof(product_t));
 
@@ -88,8 +88,6 @@ void addProduct(product_t **list, FILE **fileList) {
     newProduct->next = (*list);
     (*list) = newProduct;
 
-    fileAddProduct(newProduct, fileList);
-
     printf(
         "\nEl producto '%s' fue a%cadido\n",
         newProduct->name,
@@ -97,7 +95,7 @@ void addProduct(product_t **list, FILE **fileList) {
     );
 }
 
-void printList(product_t **list) {
+void printList(product_t **list, FILE **fileList) {
     IMPRIMIR_FIN = 0;
 
     if((*list) == NULL) {
@@ -113,6 +111,9 @@ void printList(product_t **list) {
     while(!IMPRIMIR_FIN) {
         printf("Producto: %s\n", iProduct->name);
         printf("Cantidad: %d\n", iProduct->cant);
+
+        /* VACIAR ARCHIVO */
+        fileAddProduct(iProduct, fileList);
 
         iProduct = iProduct->next;
 
