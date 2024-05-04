@@ -4,25 +4,15 @@
 #include "./file.h"
 #include "../ascii/ascii.h"
 
-void welcome() {
-    printf("Bienvenido al programa\n");
-    printf(
-        "Este c%cdigo realiza la funci%cn de una lista de compras\n",
-        oACENTO,
-        oACENTO
-    );
+void menuLoop(product_t **list, FILE **fileList) {
+    menuState_t menuState;
+
+    do {
+        menu(&menuState, list, fileList);
+    }while(menuState != FIN);
 }
 
-void menu(menuState_t *menuState, product_t **list) {
-    FILE *fileList;
-
-    if((fileList = fopen("lista-compra.txt", "w+")) == NULL) {
-        printf("\nERROR: No se ha podido acceder a %s", fileList);
-        (*menuState) = FIN;
-
-        return;     /* Salida del código si no se abre el archivo */
-    }
-
+void menu(menuState_t *menuState, product_t **list, FILE **fileList) {
     printf("\n     -----   MENU   -----\n\n");
     printf(
         "Opci%cn %u: Agrega un producto al inicio de la lista (nombre y cantidad)\n",
@@ -73,7 +63,6 @@ void menu(menuState_t *menuState, product_t **list) {
 
     case FIN:
         printf("%cHasta luego!", EXCLAMACION);
-        fclose(fileList);
 
         break;
 
@@ -85,7 +74,7 @@ void menu(menuState_t *menuState, product_t **list) {
     }
 }
 
-void addProduct(product_t **list, FILE *fileList) {
+void addProduct(product_t **list, FILE **fileList) {
     product_t *newProduct;
     newProduct = malloc(sizeof(product_t));
 
