@@ -108,6 +108,8 @@ void printList(product_t **list, FILE **fileList) {
 
     printf("LISTA:\n");
 
+    freopen("lista-compra.txt", "w", *fileList);
+
     while(!IMPRIMIR_FIN) {
         printf("Producto: %s\n", iProduct->name);
         printf("Cantidad: %d\n", iProduct->cant);
