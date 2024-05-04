@@ -1,12 +1,8 @@
      -----     PRODUCTO     -----
-Producto: a
-Cantidad a comprar: 5
+Producto: a
+Cantidad a comprar: 2
 
      -----     PRODUCTO     -----
-Producto: g
-Cantidad a comprar: 7
-
-     -----     PRODUCTO     -----
-Producto: a
+Producto: b
 Cantidad a comprar: 6
 
