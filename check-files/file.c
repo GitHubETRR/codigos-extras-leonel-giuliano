@@ -9,14 +9,14 @@ void configFiles(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]) {
     if(pText1 == NULL) {
         printf("The file '%s' couldn't been open.\n", argv[ARGV_TEXT1]);
 
-        return 1;
+        exit(1);
     }
 
     *pText2 = fopen(argv[ARGV_TEXT2], "r");
     if(pText2 == NULL) {
         printf("The file '%s' couldn't been open.\n", argv[ARGV_TEXT2]);
 
-        return 1;
+        exit(1);
     }
 
     // Returns the strings concatenated
@@ -26,7 +26,7 @@ void configFiles(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]) {
         printf("There was a problem creating '%s'.\n", RESULT);
         free(outputResult);
 
-        return 1;
+        exit(1);
     }
 
     free(outputResult);
@@ -42,7 +42,7 @@ char *concat(const char *str1, const char *str2) {
     if((result = malloc(str1Lenght + str2Lenght + 1)) == NULL) {    /* '+1' for null */
         printf("There is no memory left.\n");
 
-        return 1;
+        exit(1);
     }
 
     strcat(result, str1);

@@ -13,5 +13,9 @@ int main(int argc, char *argv[]) {
     // Gives the pointers the position of the file
     configFiles(&pText1, &pText2, &pResult, argv);
 
+    fclose(pText1);
+    fclose(pText2);
+    fclose(pResult);
+
     return 0;
 }

@@ -1,23 +1,25 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -std=c99
+LDFLAGS =
+
 SRC_DIR = .
-OBJ_DIR = output
-EXEC = output.exe
-SRC = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+OBJ_DIR = ./output
+BIN_DIR = ./output
+
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+DEPS = $(wildcard $(SRC_DIR)/*.h)
+EXEC = $(BIN_DIR)/main
 
 .PHONY: all clean
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ)
-	$(CC) $^ -o $@
+$(EXEC): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf $(OBJ_DIR) $(EXEC)
+	rm -f $(OBJS) $(EXEC)
