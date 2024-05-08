@@ -4,58 +4,49 @@
 
 #include "file.h"
 
-void createFilePointers(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]) {
+void configFiles(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]) {
     *pText1 = fopen(argv[ARGV_TEXT1], "r");
-    *pText2 = fopen(argv[ARGV_TEXT2], "r");
+    if(pText1 == NULL) {
+        printf("The file '%s' couldn't been open.\n", argv[ARGV_TEXT1]);
 
-    if(pText1 == NULL || pText2 == NULL) {
-        printf(
-            "The files '%s' or '%s' couldn't been open.\n",
-            argv[ARGV_TEXT1],
-            argv[ARGV_TEXT2]
-        );
-
-        exit(1);
+        return 1;
     }
 
-    *pResult = fopen(RESULT, "w");
+    *pText2 = fopen(argv[ARGV_TEXT2], "r");
+    if(pText2 == NULL) {
+        printf("The file '%s' couldn't been open.\n", argv[ARGV_TEXT2]);
 
+        return 1;
+    }
+
+    // Returns the strings concatenated
+    char *outputResult = concat(OUTPUT_FOLDER, RESULT);
+    *pResult = fopen(outputResult, "w");
     if(pResult == NULL) {
         printf("There was a problem creating '%s'.\n", RESULT);
+        free(outputResult);
 
-        exit(1);
-    }
-}
-
-void checkCh(FILE *pText1, FILE *pText2) {
-    rewind(pText1);
-    char ch;
-
-    while((ch = fgetc(pText1)) != EOF) {
-        if(ch != ' ' || ch != '\n') compareStr(pText1, pText2, ch);
+        return 1;
     }
 
-    printf("Finiquitaditisimo brother.\n");
+    free(outputResult);
 }
 
-void compareStr(FILE *pText1, FILE *pText2, char ch) {
-    char *str1;
-    size_t position = ftell(pText1), strLenght = 0;
+// Concatenates 2 strings. The result needs to be free
+char *concat(const char *str1, const char *str2) {
+    size_t str1Lenght = strlen(str1);
+    size_t str2Lenght = strlen(str2);
+    // Needed to know the size of the result
+    char *result;
 
-    do strLenght++;
-    while((ch = fgetc(pText1)) != EOF || ch != ' ' || ch != '\n');
-
-    fseek(pText1, position, SEEK_SET); 
-    fseek(pText2, position, SEEK_SET); 
-
-    exit(1);    /*  */
-
-    if((str1 = malloc(strLenght * sizeof(char))) == NULL) {
+    if((result = malloc(str1Lenght + str2Lenght + 1)) == NULL) {    /* '+1' for null */
         printf("There is no memory left.\n");
 
-        exit(1);
-    }file
+        return 1;
+    }
 
-    fclose(pText2); /*  */
-    exit(1);
+    strcat(result, str1);
+    strcat(result, str2);
+
+    return result;
 }

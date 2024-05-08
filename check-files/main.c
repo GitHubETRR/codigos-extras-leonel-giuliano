@@ -3,18 +3,15 @@
 #include "file.h"
 
 int main(int argc, char *argv[]) {
-    if(argc != ARGC_AMOUNT) {
-        printf("Usage: main.exe [text1] [text2].\n");
+    if(argc != ARGC_LENGHT) {
+        printf("Usage: main.exe [text-1] [text-2].\n");
 
         return 1;
     }
 
     FILE *pText1, *pText2, *pResult;
-    createFilePointers(&pText1, &pText2, &pResult, argv);
+    // Gives the pointers the position of the file
+    configFiles(&pText1, &pText2, &pResult, argv);
 
-    checkCh(pText1, pText2);
-
-    fclose(pText1);
-    fclose(pText2);
-    fclose(pResult);
+    return 0;
 }

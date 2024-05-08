@@ -1,14 +1,16 @@
 #include <stdio.h>
 
-#define ARGC_AMOUNT 3
-#define RESULT "../result.txt"
+#define ARGC_LENGHT 3       /* Parameters when called 'main.exe' */
 
-enum {
+#define OUTPUT_FOLDER "./media/"
+#define RESULT "result.txt"
+// The path is separated in case the program needs it
+
+enum {      /* Every parameter when called 'main.exe' */
     ARGV_PROGRAM,
     ARGV_TEXT1,
     ARGV_TEXT2
 };
 
-void createFilePointers(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]);
-void checkCh(FILE *pText1, FILE *pText2);
-void compareStr(FILE *pText1, FILE *pText2, char ch);
+void configFiles(FILE **pText1, FILE **pText2, FILE **pResult, char *argv[]);
+char *concat(const char *str1, const char *str2);

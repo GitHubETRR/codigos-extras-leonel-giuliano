@@ -1,26 +1,23 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -g
 SRC_DIR = .
-OBJ_DIR = ./output
-EXEC = $(OBJ_DIR)/main
+OBJ_DIR = output
+EXEC = output.exe
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
-# Lista de archivos fuente
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+.PHONY: all clean
 
-# Generar nombres de archivos objeto
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+all: $(EXEC)
 
-# Regla para construir el ejecutable
-$(EXEC): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+$(EXEC): $(OBJ)
+	$(CC) $^ -o $@
 
-# Regla para construir los archivos objeto
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Regla para limpiar los archivos generados
-clean:
-	rm -rf $(OBJ_DIR)/*.o $(EXEC)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-# No confundir limpiar con un archivo llamado "clean"
-.PHONY: clean
+clean:
+	rm -rf $(OBJ_DIR) $(EXEC)
