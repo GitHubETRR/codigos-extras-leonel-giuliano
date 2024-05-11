@@ -1,14 +1,19 @@
 #include <stdio.h>
 
+#include "error.h"
 #include "mallist.h"
 
-int main(void) {
-    char *ptr = (char*)mallist(sizeof(char));
-    *ptr = 'a';
+#define ARGC_PARAMETERS 4
 
-    printf("%u\n", *ptr);
-    freePtr(ptr);
-    printf("%u\n", *ptr);
+enum {
+    ARGV_PATH,
+    ARGV_FILE,
+    ARGV_NEW_FILE,
+    ARGV_OUTPUT
+};
+
+int main(int argc, char *argv[]) {
+    if(argc != ARGC_PARAMETERS) errorHandler(ERROR_ARGC);
 
     return 0;
 }
