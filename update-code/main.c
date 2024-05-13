@@ -36,8 +36,8 @@ int main(int argc, char *argv[]) {
 }
 
 void cmpLine(FILE *lastFile, FILE *newFile, FILE **output) {
-    static size_t i = 1;
-    size_t length = LINE_LENGTH;
+    static ssize_t i = 1;
+    ssize_t length = LINE_LENGTH;
     // Pass it to a size_t for the getline()
     char *line1, *line2;        /* Lines from the files */
 
