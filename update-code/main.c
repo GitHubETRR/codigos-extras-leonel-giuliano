@@ -32,6 +32,9 @@ int main(int argc, char *argv[]) {
 
     while(!feof(lastFile) && !feof(newFile)) cmpLine(lastFile, newFile, &output);
 
+    freeAll();
+    fcloseAll();
+
     return 0;
 }
 
@@ -54,4 +57,7 @@ void cmpLine(FILE *lastFile, FILE *newFile, FILE **output) {
     }
 
     i++;
+
+    freePtr(line1);
+    freePtr(line2);
 }
