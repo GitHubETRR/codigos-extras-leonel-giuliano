@@ -3,8 +3,8 @@ CFLAGS=-Wall -Wextra -g
 LDFLAGS=
 
 # Source files
-SOURCES=main.c
-HEADERS=mallist.h
+SOURCES=main.c error.c
+HEADERS=mallist.h error.h
 
 # Dynamic libraries (.dll files)
 DLLS=$(wildcard *.dll)
