@@ -4,7 +4,6 @@
 
 int main(void) {
     printf("Hola");
-    
-
+    aoksokasoas
     return 0;
 }

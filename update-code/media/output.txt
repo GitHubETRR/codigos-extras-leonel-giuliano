@@ -1,0 +1,8 @@
+     -----   DIFFERENCE IN LINE 6   -----
+old file:     
+new file:     printf("Hola");
+
+     -----   DIFFERENCE IN LINE 7   -----
+old file:     
+new file:     aoksokasoas
+
