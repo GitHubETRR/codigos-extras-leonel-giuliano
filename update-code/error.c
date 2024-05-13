@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "error.h"
+#include "mallist.h"
 
 void errorHandler(errorEvent_t error) {
     printf("ERROR: ");
@@ -23,6 +24,9 @@ void errorHandler(errorEvent_t error) {
             printf("Unkown error.\n");
             break;
     }
+
+    freeAll();
+    fcloseAll();
 
     exit(EXIT_FAILURE);
 }
