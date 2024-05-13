@@ -31,16 +31,17 @@ int main(int argc, char *argv[]) {
     if((output = fopenList(argv[ARGV_OUTPUT], "w")) == NULL) errorHandler(ERROR_FILE);
 
     while(!feof(lastFile) && !feof(newFile)) cmpLine(lastFile, newFile, &output);
+    printf("Hello");
 
-    freeAll();
+    // freeAll();
     fcloseAll();
 
     return 0;
 }
 
 void cmpLine(FILE *lastFile, FILE *newFile, FILE **output) {
-    static ssize_t i = 1;
-    ssize_t length = LINE_LENGTH;
+    static size_t i = 1;
+    size_t length = LINE_LENGTH;
     // Pass it to a size_t for the getline()
     char *line1, *line2;        /* Lines from the files */
 
@@ -54,6 +55,8 @@ void cmpLine(FILE *lastFile, FILE *newFile, FILE **output) {
         fprintf(*output, "     -----   DIFFERENCE IN LINE %d   -----\n", i);
         fprintf(*output, "old file: %s", line1);
         fprintf(*output, "new file: %s\n", line2);
+
+        fflush(*output);
     }
 
     i++;
