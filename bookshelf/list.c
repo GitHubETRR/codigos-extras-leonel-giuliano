@@ -8,7 +8,12 @@ void readData(FILE *spreadsheet) {
     // Num in case the loop exceeds EXIT_PREVENT
 
     spreadsheet_t *book = (spreadsheet_t *)malloc(sizeof(spreadsheet_t));
-    if(book == NULL) errorHandler(ERROR_MEMORY);
+    if(book == NULL) {
+        free(list);
+        fclose(spreadsheet);
+
+        errorHandler(ERROR_MEMORY);
+    }
     // Create a new book that will contain the data from the text
 
     while(!feof(spreadsheet) && exitPrevent != EXIT_PREVENT) {
@@ -49,7 +54,48 @@ void readData(FILE *spreadsheet) {
 
     free(book);
 
-    printf("%s\n", list->user);
-
     fflush(spreadsheet);
+}
+
+void uploadData(FILE **spreadsheet, spreadsheet_t *book) {
+    fprintf(*spreadsheet, "N%c%d\n", GRADE, book->i);
+    fprintf(*spreadsheet, "User:%c%s\n", NBSP, book->user);
+    fprintf(*spreadsheet, "Title: #%s\n", book->title);
+    fprintf(*spreadsheet, "Book N%c%d\n", GRADE, book->bookNum);
+    fprintf(*spreadsheet, "Initial day: %s\n", book->initDate);
+    fprintf(*spreadsheet, "Return day: %s\n", book->finalDate);
+    // Prints all the new items inside the file
+
+    fputs("--------------------\n", *spreadsheet);
+    fflush(*spreadsheet);
+}
+
+void newBook(FILE **spreadsheet) {
+    spreadsheet_t *book = (spreadsheet_t *)malloc(sizeof(spreadsheet_t));
+    if(book == NULL) {
+        free(list);
+        fclose(spreadsheet);
+
+        exit(ERROR_MEMORY);
+    }
+
+    uint16_t lastI = (list == NULL) ? 0 : list->i;
+    // Makes the lastI be equal to the one from the list
+    // In case the list is empty, it sets it to 0
+    book->i = lastI + 1;
+
+    printf("User: ");
+    scanf("%[^\n]", book->user);
+    printf("Title: ");
+    scanf("%[^\n]", book->title);
+    printf("Number of the book: ");
+    scanf("%u", &(book->bookNum));
+    printf("Initial day: ");
+    scanf("%[^\n]", book->initDate);
+    printf("Return day: ");
+    scanf("%[^\n]", book->finalDate);
+
+    uploadData(spreadsheet, book);
+
+    free(book);
 }
