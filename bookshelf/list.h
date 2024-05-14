@@ -6,13 +6,13 @@
 #define NAME_LENGTH 50
 
 // Amount of char from a point to another inside spreadsheet
-#define SPREAD_I 2
-#define SPREAD_USER 7
-#define SPREAD_TITLE 7
-#define SPREAD_BOOK 7
-#define SPREAD_INIT 13
-#define SPREAD_FINAL 12
-#define SPREAD_SPACE 20
+#define SPREAD_I 2          /* N° */
+#define SPREAD_USER 8       /* \nUser: # */
+#define SPREAD_TITLE 9      /* \nTitle: " */
+#define SPREAD_BOOK 9       /* "\nBook N° */
+#define SPREAD_INIT 14      /* \nInitial day:  */
+#define SPREAD_FINAL 13     /* \nReturn day:  */
+#define SPREAD_SPACE 22     /* \n--------------------\n */
 
 typedef struct _book {
     size_t i;

@@ -1,7 +1,7 @@
 ```
 N°1
 User: #
-Title: 
+Title: ""
 Book N°2020
 Initial day: 
 Return day: 

@@ -4,4 +4,4 @@ enum {
     ARGV_OUTPUT
 };
 
-#define GRADE 167       /* º */
+#define GRADE 268       /* ° */
