@@ -85,15 +85,15 @@ void newBook(FILE **spreadsheet) {
     book->i = lastI + 1;
 
     printf("User: ");
-    scanf(" %[^\n]*c", book->user);
+    scanf(" %[^\n]", book->user);
     printf("Title: ");
-    scanf(" %[^\n]*c", book->title);
+    scanf(" %[^\n]", book->title);
     printf("Number of the book: ");
     scanf("%u", &(book->bookNum));
     printf("Initial day: ");
-    scanf(" %[^\n]*c", book->initDate);
+    scanf(" %[^\n]", book->initDate);
     printf("Return day: ");
-    scanf(" %[^\n]*c", book->finalDate);
+    scanf(" %[^\n]", book->finalDate);
 
     uploadData(spreadsheet, book);
 

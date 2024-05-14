@@ -7,13 +7,15 @@
 #define NAME_LENGTH 50
 
 // Amount of char from a point to another inside spreadsheet
-#define SPREAD_I 2          /* "N°" */
-#define SPREAD_USER 7       /* "\nUser: " */
-#define SPREAD_TITLE 9      /* "\nTitle: #" */
-#define SPREAD_BOOK 8       /* "\nBook N°" */
-#define SPREAD_INIT 14      /* "\nInitial day: " */
-#define SPREAD_FINAL 13     /* "\nReturn day: " */
-#define SPREAD_SPACE 22     /* "\n--------------------\n" */
+// Every multichar counts as 2 positions
+// '\n' counts as 1
+#define SPREAD_I 3          /* "N\u00B0 */
+#define SPREAD_USER 9       /* "\nUser:\u00A0" */
+#define SPREAD_TITLE 10      /* "\nTitle: #" */
+#define SPREAD_BOOK 10       /* "\nBook N\u00B0" */
+#define SPREAD_INIT 15      /* "\nInitial day: " */
+#define SPREAD_FINAL 14     /* "\nReturn day: " */
+#define SPREAD_SPACE 24     /* "\n--------------------\n" */
 
 // Extended chars
 #define GRADE "\u00B0"      /* ° */

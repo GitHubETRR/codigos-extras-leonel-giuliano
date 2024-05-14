@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
     if((spreadsheet = fopen(argv[ARGV_OUTPUT], "a+")) == NULL) errorHandler(ERROR_FILE);
     // Opens in append in case there was data saved
 
-    rewind(spreadsheet);
     readData(spreadsheet);
     newBook(&spreadsheet);
 
