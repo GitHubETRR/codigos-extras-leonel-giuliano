@@ -18,7 +18,7 @@ void readData(FILE *spreadsheet) {
 
     while(!feof(spreadsheet) && exitPrevent != EXIT_PREVENT) {
         fseek(spreadsheet, SPREAD_I, SEEK_CUR);
-        fscanf(spreadsheet, "%d", &(book->i));
+        fscanf(spreadsheet, "%hu", &(book->i));
         // Scan the number
 
         fseek(spreadsheet, SPREAD_USER, SEEK_CUR);
@@ -58,10 +58,10 @@ void readData(FILE *spreadsheet) {
 }
 
 void uploadData(FILE **spreadsheet, spreadsheet_t *book) {
-    fprintf(*spreadsheet, "N%c%d\n", GRADE, book->i);
-    fprintf(*spreadsheet, "User:%c%s\n", NBSP, book->user);
+    fprintf(*spreadsheet, "N%s%d\n", GRADE, book->i);
+    fprintf(*spreadsheet, "User:%s%s\n", NBSP, book->user);
     fprintf(*spreadsheet, "Title: #%s\n", book->title);
-    fprintf(*spreadsheet, "Book N%c%d\n", GRADE, book->bookNum);
+    fprintf(*spreadsheet, "Book N%s%d\n", GRADE, book->bookNum);
     fprintf(*spreadsheet, "Initial day: %s\n", book->initDate);
     fprintf(*spreadsheet, "Return day: %s\n", book->finalDate);
     // Prints all the new items inside the file
@@ -74,7 +74,7 @@ void newBook(FILE **spreadsheet) {
     spreadsheet_t *book = (spreadsheet_t *)malloc(sizeof(spreadsheet_t));
     if(book == NULL) {
         free(list);
-        fclose(spreadsheet);
+        fclose(*spreadsheet);
 
         exit(ERROR_MEMORY);
     }
@@ -85,15 +85,15 @@ void newBook(FILE **spreadsheet) {
     book->i = lastI + 1;
 
     printf("User: ");
-    scanf("%[^\n]", book->user);
+    scanf(" %[^\n]*c", book->user);
     printf("Title: ");
-    scanf("%[^\n]", book->title);
+    scanf(" %[^\n]*c", book->title);
     printf("Number of the book: ");
     scanf("%u", &(book->bookNum));
     printf("Initial day: ");
-    scanf("%[^\n]", book->initDate);
+    scanf(" %[^\n]*c", book->initDate);
     printf("Return day: ");
-    scanf("%[^\n]", book->finalDate);
+    scanf(" %[^\n]*c", book->finalDate);
 
     uploadData(spreadsheet, book);
 

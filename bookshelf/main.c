@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
 
     rewind(spreadsheet);
     readData(spreadsheet);
+    newBook(&spreadsheet);
 
     fclose(spreadsheet);
 

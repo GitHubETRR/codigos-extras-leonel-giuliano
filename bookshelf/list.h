@@ -16,8 +16,8 @@
 #define SPREAD_SPACE 22     /* "\n--------------------\n" */
 
 // Extended chars
-#define GRADE 248       /* ° */
-#define NBSP 255        /*   */
+#define GRADE "\u00B0"      /* ° */
+#define NBSP "\u00A0"       /*   */
 
 typedef struct _book {
     uint16_t i;
