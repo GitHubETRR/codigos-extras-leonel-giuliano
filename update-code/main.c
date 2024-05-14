@@ -31,7 +31,6 @@ int main(int argc, char *argv[]) {
     if((output = fopenList(argv[ARGV_OUTPUT], "w")) == NULL) errorHandler(ERROR_FILE);
 
     while(!feof(lastFile) && !feof(newFile)) cmpLine(lastFile, newFile, &output);
-    printf("Hello");
 
     // freeAll();
     fcloseAll();

@@ -1,6 +1,6 @@
 ```
 N°1
-User: $
+User: 
 Title: #
 Book N°2020
 Initial day: 
