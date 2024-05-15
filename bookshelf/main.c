@@ -11,15 +11,25 @@ int main(int argc, char *argv[]) {
     if((spreadsheet = fopen(argv[ARGV_OUTPUT], "a+")) == NULL) errorHandler(ERROR_FILE);
     // Opens in append in case there was data saved
 
-    readData(spreadsheet);
-    newBook(&spreadsheet);
-
-    if(choice("Do you want to delete the file?")) delSheet(&spreadsheet, argv);
+    uint16_t exitPrevent = 0;
+    menuState_t menuState;
+    do {
+        menu(&menuState, &spreadsheet);
+        exitPrevent++;
+    }while(menuState != END && exitPrevent != EXIT_PREVENT);
+    // Loops the menu until it's finished or an error happens
 
     delList();
     fclose(spreadsheet);
 
     return 0;
+}
+
+void menu(menuState_t *menuState, FILE **spreadsheet) {
+    printf("%u. Enter a new entry.\n", ADD_ENTRY);
+    printf("%u. Print the spreadsheet.\n", PRINT_SPREADSHEET);
+    printf("%u. Delete an entry.\n", DELETE_ENTRY);
+    printf("%u. ", DELETE_LIST);
 }
 
 uint8_t choice(const char *msg) {

@@ -5,17 +5,6 @@
 #define DATE_LENGTH 9       /* mm/dd/yy */
 #define NAME_LENGTH 51
 
-// Amount of char from a point to another inside spreadsheet
-// Every multichar counts as 2 positions
-// '\n' counts as 1
-#define SPREAD_I 3          /* "N\u00B0" */
-#define SPREAD_USER 8       /* "\nUser: " */
-#define SPREAD_TITLE 9      /* "\nTitle: " */
-#define SPREAD_BOOK 10       /* "\nBook N\u00B0" */
-#define SPREAD_INIT 15      /* "\nInitial day: " */
-#define SPREAD_FINAL 14     /* "\nReturn day: " */
-#define SPREAD_SPACE 24     /* "\n--------------------\n" */
-
 // Extended chars
 #define GRADE "\u00B0"      /* ° */
 

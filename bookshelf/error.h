@@ -1,4 +1,4 @@
-#define EXIT_PREVENT 600
+#define EXIT_PREVENT 5000
 // Max amount of recursion for the books in case of an error
 
 typedef enum {

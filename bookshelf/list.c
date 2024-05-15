@@ -30,11 +30,11 @@ void newBook(FILE **spreadsheet) {
     printf("Return day: ");
     scanf(" %s", book->finalDate);
 
-    uploadData(spreadsheet, book);
+    uploadData(book, spreadsheet);
 }
 
 void delList() {
-    uint16_t exitPrevent = 1;
+    uint16_t exitPrevent = 0;
     spreadsheet_t *delBook;
 
     while(list != NULL && exitPrevent != EXIT_PREVENT) {
