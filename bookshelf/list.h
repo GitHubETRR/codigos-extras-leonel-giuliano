@@ -33,7 +33,8 @@ typedef struct _book {
     struct _book *next;
 }spreadsheet_t;
 
-void newBook(FILE **);
-void delList(void);
+void newBook(FILE **);      /* Adds a new book to the list */
+void delList(void);         /* Deletes all the elements inside the list */
 
 extern spreadsheet_t *list;
+// Extern the list to use it inside 'file.c'

@@ -1,4 +1,7 @@
+#include <stdlib.h>
+
 #include "file.h"
+#include "main.h"
 #include "error.h"
 
 void readData(FILE *spreadsheet) {
@@ -6,7 +9,7 @@ void readData(FILE *spreadsheet) {
     // Num in case the loop exceeds EXIT_PREVENT
 
     fseek(spreadsheet, 0, SEEK_END);
-    size_t fileLength = ftell(spreadsheet), pos = 0;
+    size_t pos = 0, fileLength = ftell(spreadsheet);
     rewind(spreadsheet);
     // Gets the value that pos has to offer when
     // the file is at it's end point
@@ -70,4 +73,9 @@ void uploadData(FILE **spreadsheet, spreadsheet_t *book) {
 
     fputs("--------------------\n", *spreadsheet);
     fflush(*spreadsheet);
+}
+
+void delSheet(FILE **spreadsheet, char *argv[]) {
+    (*spreadsheet) = freopen(argv[ARGV_OUTPUT], "w+", *spreadsheet);
+    // Empties the file by reopen it
 }

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "file.h"
 #include "error.h"
 
