@@ -10,8 +10,8 @@
 // Every multichar counts as 2 positions
 // '\n' counts as 1
 #define SPREAD_I 3          /* "N\u00B0" */
-#define SPREAD_USER 9       /* "\nUser:\u00A0" */
-#define SPREAD_TITLE 10      /* "\nTitle: #" */
+#define SPREAD_USER 8       /* "\nUser: " */
+#define SPREAD_TITLE 9      /* "\nTitle: " */
 #define SPREAD_BOOK 10       /* "\nBook N\u00B0" */
 #define SPREAD_INIT 15      /* "\nInitial day: " */
 #define SPREAD_FINAL 14     /* "\nReturn day: " */
@@ -19,7 +19,6 @@
 
 // Extended chars
 #define GRADE "\u00B0"      /* ° */
-#define NBSP "\u00A0"       /*   */
 
 typedef struct _book {
     uint16_t i;
