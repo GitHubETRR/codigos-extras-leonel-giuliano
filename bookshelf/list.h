@@ -3,13 +3,13 @@
 #include <stdint.h>
 
 // spreadsheet_t
-#define DATE_LENGTH 8       /* mm/dd/yy */
-#define NAME_LENGTH 50
+#define DATE_LENGTH 9       /* mm/dd/yy */
+#define NAME_LENGTH 51
 
 // Amount of char from a point to another inside spreadsheet
 // Every multichar counts as 2 positions
 // '\n' counts as 1
-#define SPREAD_I 3          /* "N\u00B0 */
+#define SPREAD_I 3          /* "N\u00B0" */
 #define SPREAD_USER 9       /* "\nUser:\u00A0" */
 #define SPREAD_TITLE 10      /* "\nTitle: #" */
 #define SPREAD_BOOK 10       /* "\nBook N\u00B0" */

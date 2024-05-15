@@ -1,6 +1,8 @@
 #include "list.h"
 #include "error.h"
 
+#include <string.h>
+
 static spreadsheet_t *list = NULL;
 
 void readData(FILE *spreadsheet) {
@@ -16,7 +18,13 @@ void readData(FILE *spreadsheet) {
     }
     // Create a new book that will contain the data from the text
 
-    while(!feof(spreadsheet) && exitPrevent != EXIT_PREVENT) {
+    fseek(spreadsheet, 0, SEEK_END);
+    size_t fileLength = ftell(spreadsheet), pos = 0;
+    rewind(spreadsheet);
+    // Gets the value that pos has to offer when
+    // the file is at it's end point
+
+    while(fileLength - pos && exitPrevent != EXIT_PREVENT) {
         fseek(spreadsheet, SPREAD_I, SEEK_CUR);
         fscanf(spreadsheet, "%hu", &(book->i));
         // Scan the number
@@ -46,7 +54,9 @@ void readData(FILE *spreadsheet) {
         // Connects the book with the entire list
 
         fseek(spreadsheet, SPREAD_SPACE, SEEK_CUR);
+        pos = ftell(spreadsheet);
         // Sets the - spaces for the following iteration
+        // Tells the position of the seek in case it finished
 
         exitPrevent++;
         // Prevents a large while
@@ -89,11 +99,11 @@ void newBook(FILE **spreadsheet) {
     printf("Title: ");
     scanf(" %[^\n]", book->title);
     printf("Number of the book: ");
-    scanf("%u", &(book->bookNum));
+    scanf(" %u", &(book->bookNum));
     printf("Initial day: ");
-    scanf(" %[^\n]", book->initDate);
+    scanf(" %s", book->initDate);
     printf("Return day: ");
-    scanf(" %[^\n]", book->finalDate);
+    scanf(" %s", book->finalDate);
 
     uploadData(spreadsheet, book);
 
