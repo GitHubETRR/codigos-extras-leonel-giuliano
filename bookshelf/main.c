@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "main.h"
-#include "list.h"
+#include "file.h"
 #include "error.h"
 
 int main(int argc, char *argv[]) {
