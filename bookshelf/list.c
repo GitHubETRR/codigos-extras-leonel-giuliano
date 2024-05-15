@@ -69,8 +69,8 @@ void readData(FILE *spreadsheet) {
 
 void uploadData(FILE **spreadsheet, spreadsheet_t *book) {
     fprintf(*spreadsheet, "N%s%d\n", GRADE, book->i);
-    fprintf(*spreadsheet, "User:%s%s\n", NBSP, book->user);
-    fprintf(*spreadsheet, "Title: #%s\n", book->title);
+    fprintf(*spreadsheet, "User:%s\n", book->user);
+    fprintf(*spreadsheet, "Title: %s\n", book->title);
     fprintf(*spreadsheet, "Book N%s%d\n", GRADE, book->bookNum);
     fprintf(*spreadsheet, "Initial day: %s\n", book->initDate);
     fprintf(*spreadsheet, "Return day: %s\n", book->finalDate);
