@@ -60,6 +60,8 @@ void readData(FILE *spreadsheet) {
         // Prevents a large while
     }
 
+    if(list!=NULL) printf("%d\n", list->i);
+
     free(book);
 }
 
@@ -86,6 +88,8 @@ void newBook(FILE **spreadsheet) {
     }
 
     uint16_t lastI = (list == NULL) ? 0 : list->i;
+    if(list!=NULL) printf("%d\n", list->i);
+    printf("%d\n", lastI);
     // Makes the lastI be equal to the one from the list
     // In case the list is empty, it sets it to 0
     book->i = lastI + 1;
