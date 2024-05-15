@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
     readData(spreadsheet);
     newBook(&spreadsheet);
 
+    delList();
     fclose(spreadsheet);
 
     return 0;

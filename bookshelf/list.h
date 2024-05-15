@@ -34,11 +34,7 @@ typedef struct _book {
     struct _book *next;
 }spreadsheet_t;
 
-// LIST FUNCTIONS
 void newBook(FILE **);
+void delList(void);
 
-
-
-// FILE FUNCTIONS
-void readData(FILE *);
-void uploadData(FILE **, spreadsheet_t *);
+extern spreadsheet_t *list;
