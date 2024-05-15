@@ -1,8 +1,6 @@
 #include "list.h"
 #include "error.h"
 
-#include <string.h>
-
 static spreadsheet_t *list = NULL;
 
 void readData(FILE *spreadsheet) {
@@ -63,13 +61,11 @@ void readData(FILE *spreadsheet) {
     }
 
     free(book);
-
-    fflush(spreadsheet);
 }
 
 void uploadData(FILE **spreadsheet, spreadsheet_t *book) {
     fprintf(*spreadsheet, "N%s%d\n", GRADE, book->i);
-    fprintf(*spreadsheet, "User:%s\n", book->user);
+    fprintf(*spreadsheet, "User: %s\n", book->user);
     fprintf(*spreadsheet, "Title: %s\n", book->title);
     fprintf(*spreadsheet, "Book N%s%d\n", GRADE, book->bookNum);
     fprintf(*spreadsheet, "Initial day: %s\n", book->initDate);
