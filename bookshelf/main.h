@@ -16,6 +16,8 @@ typedef enum {
 }menuState_t;
 // States of the menu options
 
-void menu(menuState_t *, FILE **);  /* Loop of the menu */
-void menuDelEntry(FILE **);         /* Functions to delete an entry */
-uint8_t choice(const char *);       /* Returns a bool with a choice */
+void menu(menuState_t *, FILE **, char *[]);    /* Loop of the menu */
+void menuAdd(FILE **, char *[]);                /* Function to add an entry */
+void menuPrintEntries(FILE **, char *[]);       /* Function to print an entry */
+void menuDelEntry(FILE **, char *[]);           /* Functions to delete an entry */
+uint8_t choice(const char *);                   /* Returns a bool with a choice */

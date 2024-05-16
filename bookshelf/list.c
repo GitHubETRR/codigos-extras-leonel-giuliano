@@ -39,7 +39,7 @@ void newEntry(FILE **spreadsheet) {
     // Adds the entry to the list
 }
 
-void printEntries(FILE **spreadsheet) {
+void printEntries() {
     uint16_t exitPrevent = 0;
     spreadsheet_t *iEntry = list;
 
@@ -60,7 +60,7 @@ void printEntries(FILE **spreadsheet) {
     if(list == NULL) printf("There are no entries.\n");
 }
 
-void delEntry(const char *user, size_t bookNum) {
+void delEntry(const char *user, size_t bookNum, FILE **spreadsheet) {
     uint16_t exitPrevent = 0;
     spreadsheet_t *beforeEntry = NULL, *delEntry = list;
     // beforeEntry tracks the entry from before

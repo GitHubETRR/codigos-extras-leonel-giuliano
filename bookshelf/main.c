@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     uint8_t exitPrevent = 0;
     menuState_t menuState;
     do {
-        menu(&menuState, &spreadsheet);
+        menu(&menuState, &spreadsheet, argv);
         exitPrevent++;
     }while(menuState != MENU_END && exitPrevent != MAINLOOP_LIMIT);
     // Loops the menu until it's finished or an error happens
@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void menu(menuState_t *menuState, FILE **spreadsheet) {
-    void (*menuF[])(FILE **) = {
-        newEntry,
-        printEntries,
+void menu(menuState_t *menuState, FILE **spreadsheet, char *argv[]) {
+    void (*menuF[])(FILE **, char *[]) = {
+        menuAdd,
+        menuPrintEntries,
         menuDelEntry
     };
     // Pointer with every option in the menu
@@ -45,7 +45,7 @@ void menu(menuState_t *menuState, FILE **spreadsheet) {
     printf("\n");
 
     if(*menuState > MENU_START && *menuState <= MENU_END)
-        menuF[*menuState - 1](spreadsheet);
+        menuF[*menuState - 1](spreadsheet, argv);
         
     else printf("Select a given option.\n");
     // Acts as a switch
@@ -67,7 +67,15 @@ uint8_t choice(const char *msg) {
     // Retuns 1 if yes, returns 0 in every other case
 }
 
-void menuDelEntry(FILE **spreadsheet) {
+void menuAdd(FILE **spreadsheet, char *argv[]) {
+    newEntry(spreadsheet);
+}
+
+void menuPrintEntries(FILE **spreadsheet, char *argv[]) {
+    printEntries();
+}
+
+void menuDelEntry(FILE **spreadsheet, char *argv[]) {
     if(choice("Do you really meant to delete an entry?")) {
         char user[NAME_LENGTH];
         size_t bookNum;
@@ -77,6 +85,7 @@ void menuDelEntry(FILE **spreadsheet) {
         printf("Enter the book number: ");
         scanf(" %u", &bookNum);
 
-        delEntry(user, bookNum);
+        readData(spreadsheet);
+        delEntry(user, bookNum, spreadsheet);
     } else printf("Returning to the menu...\n");
 }
