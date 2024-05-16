@@ -1,5 +1,6 @@
-#define EXIT_PREVENT 5000
-// Max amount of recursion for the books in case of an error
+#define MAINLOOP_LIMIT 250
+#define LISTLOOP_LIMIT 1000
+// Max amount for the loops
 
 typedef enum {
     ERROR_ARGC,

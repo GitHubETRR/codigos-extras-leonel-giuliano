@@ -7,6 +7,7 @@
 
 // Extended chars
 #define GRADE "\u00B0"      /* ° */
+#define GRADE_ASCII 248     /* ° */
 
 typedef struct _book {
     uint16_t i;
@@ -22,8 +23,10 @@ typedef struct _book {
     struct _book *next;
 }spreadsheet_t;
 
-void newBook(FILE **);      /* Adds a new book to the list */
-void delList(void);         /* Deletes all the elements inside the list */
+void newEntry(FILE **);                 /* Adds a new book to the list */
+void printEntries(FILE **);             /* Prints all the new entries */
+void delEntry(const char *, size_t);    /* Deletes an entry */
+void delList(void);                     /* Deletes all the elements inside the list */
 
 extern spreadsheet_t *list;
 // Extern the list to use it inside 'file.c'

@@ -11,12 +11,12 @@ int main(int argc, char *argv[]) {
     if((spreadsheet = fopen(argv[ARGV_OUTPUT], "a+")) == NULL) errorHandler(ERROR_FILE);
     // Opens in append in case there was data saved
 
-    uint16_t exitPrevent = 0;
+    uint8_t exitPrevent = 0;
     menuState_t menuState;
     do {
         menu(&menuState, &spreadsheet);
         exitPrevent++;
-    }while(menuState != END && exitPrevent != EXIT_PREVENT);
+    }while(menuState != MENU_END && exitPrevent != MAINLOOP_LIMIT);
     // Loops the menu until it's finished or an error happens
 
     delList();
@@ -26,10 +26,30 @@ int main(int argc, char *argv[]) {
 }
 
 void menu(menuState_t *menuState, FILE **spreadsheet) {
+    void (*menuF[])(FILE **) = {
+        newEntry,
+        printEntries,
+        menuDelEntry
+    };
+    // Pointer with every option in the menu
+
     printf("%u. Enter a new entry.\n", ADD_ENTRY);
-    printf("%u. Print the spreadsheet.\n", PRINT_SPREADSHEET);
+    printf("%u. Print the new entries from last to first.\n", PRINT_NEW_ENTRIES);
     printf("%u. Delete an entry.\n", DELETE_ENTRY);
-    printf("%u. ", DELETE_LIST);
+    printf("%u. Erase all the entries from the list.\n", DELETE_LIST);
+    printf("%u. Exit the program.\n\n", MENU_END);
+
+    printf("Choose you option: ");
+    scanf("%u", menuState);
+    printf("\n");
+
+    if(*menuState > MENU_START && *menuState <= MENU_END)
+        menuF[*menuState - 1](spreadsheet);
+        
+    else printf("Select a given option.\n");
+    // Acts as a switch
+
+    printf("\n++++++++++++++++++++\n\n");
 }
 
 uint8_t choice(const char *msg) {
@@ -44,4 +64,19 @@ uint8_t choice(const char *msg) {
     
     return bool;
     // Retuns 1 if yes, returns 0 in every other case
+}
+
+void menuDelEntry(FILE **spreadsheet) {
+    if(choice("Do you really meant to delete an entry?")) {
+        char user[NAME_LENGTH];
+        size_t bookNum;
+
+        printf("\nEnter the user name: ");
+        scanf(" %[^\n]", user);
+        printf("Enter the book number: ");
+        scanf(" %u", &bookNum);
+
+        delEntry(user, bookNum);
+        // Call delSheetEntry
+    } else printf("Returning to the menu...\n");
 }

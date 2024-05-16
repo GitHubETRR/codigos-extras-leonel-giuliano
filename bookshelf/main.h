@@ -7,13 +7,15 @@ enum {
 };
 
 typedef enum {
-    ADD_ENTRY = 1,
-    PRINT_SPREADSHEET,
+    MENU_START,
+    ADD_ENTRY,
+    PRINT_NEW_ENTRIES,
     DELETE_ENTRY,
     DELETE_LIST,
-    END
+    MENU_END
 }menuState_t;
 // States of the menu options
 
 void menu(menuState_t *, FILE **);  /* Loop of the menu */
+void menuDelEntry(FILE **);         /* Functions to delete an entry */
 uint8_t choice(const char *);       /* Returns a bool with a choice */
