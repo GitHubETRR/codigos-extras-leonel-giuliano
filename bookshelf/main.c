@@ -8,12 +8,9 @@ int main(int argc, char *argv[]) {
     if(argc != ARGC_PARAMETERS) errorHandler(ERROR_ARGC);
 
     FILE *spreadsheet;
-    if((spreadsheet = fopen(argv[ARGV_OUTPUT], "r+")) == NULL)
-        if((spreadsheet = fopen(argv[ARGV_OUTPUT], "w+")) == NULL)
-            errorHandler(ERROR_FILE);
-    // Allows to read an write past info
-    // Append can't write inside past info
-    searchEntry("c", 2, &spreadsheet);
+    if((spreadsheet = fopen(argv[ARGV_OUTPUT], "a+")) == NULL)
+        errorHandler(ERROR_FILE);
+    // Open file in append mode to read past data
 
     uint8_t exitPrevent = 0;
     menuState_t menuState;
@@ -81,6 +78,5 @@ void menuDelEntry(FILE **spreadsheet) {
         scanf(" %u", &bookNum);
 
         delEntry(user, bookNum);
-        // Call delSheetEntry
     } else printf("Returning to the menu...\n");
 }
