@@ -1,4 +1,5 @@
 // Exit prevents from the loop
+#define MENU_LOOP 500
 #define READ_LOOP 5000
 
 typedef enum {
