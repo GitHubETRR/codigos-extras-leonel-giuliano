@@ -8,11 +8,15 @@ void errorHandler(errorEvent_t error) {
 
     switch(error) {
         case ERROR_ARGC:
-            puts("Usage: main.exe (file)[OPTIONAL].");
+            puts("Usage: main.exe (file.dat)[OPTIONAL].");
             break;
 
         case ERROR_FILE:
             puts("There was a problem with the file.");
+            break;
+
+        case ERROR_MEMORY:
+            puts("There was a problem allocating.");
             break;
 
         default:

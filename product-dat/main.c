@@ -19,12 +19,14 @@ int main(int argc, char *argv[]) {
 
     char *filePath;
     if(argc == ARGC_PRED) filePath = FILE_PRED;
+    // Case when the file isn't a parameter
     else filePath = argv[ARGV_FILE];
+    // Case when the file is a parameter
 
     FILE *productDat;
     if((productDat = fopen(filePath, "ab+")) == NULL) errorHandler(ERROR_FILE);
 
-    newProduct(productDat);
+    fclose(productDat);
 
     return 0;
 }

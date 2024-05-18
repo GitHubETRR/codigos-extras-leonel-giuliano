@@ -4,8 +4,8 @@
 #define NAME_LENGTH 30
 // Because uint16 has to be in a multiple of 2 direction
 // And uint32 in a multiple of 4
-// The length of the name has to make
-// (2 + NAME_LENGTH + 4) % 4 = 0 o NAME_LENGTH = 2n + 4
+// (2 + NAME_LENGTH) % 4 = 0 => NAME_LENGTH = 4n + 2
+// NAME_LENGTH = 2(2n + 1), the double of any odd num
 
 typedef struct {
     uint16_t id;
@@ -16,4 +16,5 @@ typedef struct {
 }product_t;
 // Struct for the products
 
-void newProduct(FILE *);
+void newProduct(FILE*);
+product_t *readProduct(FILE*, uint16_t);
