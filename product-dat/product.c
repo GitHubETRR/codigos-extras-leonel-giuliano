@@ -33,17 +33,19 @@ product_t *readProduct(FILE *productDat, uint16_t id) {
     }
 
     product_t productRead;
-    fread(&productRead, sizeof(product_t), 1, productDat);
-    // Read the product from a position
+    if(fread(&productRead, sizeof(product_t), 1, productDat) != 0) {
+        if(productRead.id == id) *productReturn = productRead;
+        else productReturn = NULL;
+    } else {
+        free(productReturn);
+        fclose(productDat);
 
-    if(productRead.id == id) {
-        *productReturn = productRead;
-
-        return productReturn;
+        errorHandler(ERROR_FILEREAD);
     }
+    // Read the product from a position
+    // In case there was a problem reading it, exit the code
 
-    free(productReturn);
-    return NULL;
-    // Returns NULL in case the id wasn't found
+    return productReturn;
     // Retuns the product in case it was found
+    // Returns NULL in case the id wasn't found
 }

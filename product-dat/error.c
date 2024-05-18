@@ -19,6 +19,10 @@ void errorHandler(errorEvent_t error) {
             puts("There was a problem allocating.");
             break;
 
+        case ERROR_FILEREAD:
+            puts("There was a problem reading the file.");
+            break;
+
         default:
             puts("Unkown error.");
             break;
