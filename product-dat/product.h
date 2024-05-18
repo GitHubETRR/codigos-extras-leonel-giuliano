@@ -16,7 +16,7 @@ typedef struct {
 }product_t;
 // Struct for the products
 
-void newProduct(FILE*);
-product_t *readProduct(FILE*, uint16_t);
-void printProduct(FILE*);
-void delProduct(FILE*, const char*);
+void newProduct(FILE *_Stream);
+product_t *readProduct(FILE *_Stream, uint16_t _Id);
+void printProduct(FILE *_Stream);
+void delProduct(FILE *_Stream, const char *_FileName);

@@ -10,4 +10,4 @@ typedef enum {
 }errorEvent_t;
 // Every possible error
 
-void errorHandler(errorEvent_t);
+void errorHandler(errorEvent_t _Error);

@@ -98,7 +98,7 @@ void delProduct(FILE *productDat, const char *filePath) {
     printf("Id of the product: ");
     scanf(" %hu", &id);
     product.id = id + 1;
-    // Assure that product.id is different to loop
+    // Makes sure that product.id is different to loop
 
     if((tempFile = fopen(tempPath, "wb+")) == NULL) {
         fclose(productDat);
@@ -123,19 +123,14 @@ void delProduct(FILE *productDat, const char *filePath) {
 
     if(foundBool) {
         exitPrevent = 0;
-        ch = '\0';
         productDat = freopen(filePath, "wb+", productDat);
         // Empty the file
 
         rewind(tempFile);
         // Make sure is at the beggining
-        while(ch != EOF && exitPrevent != READ_LOOP) {
-            fread(&product, sizeof(product_t), 1, tempFile);
+        while(fread(&product, sizeof(product_t), 1, tempFile) && exitPrevent != READ_LOOP) {
             fwrite(&product, sizeof(product_t), 1, productDat);
             fflush(productDat);
-
-            ch = fgetc(tempFile);
-            fseek(tempFile, -1, SEEK_CUR);
             
             exitPrevent++;
         }
