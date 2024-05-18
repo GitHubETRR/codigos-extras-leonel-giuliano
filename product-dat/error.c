@@ -23,6 +23,10 @@ void errorHandler(errorEvent_t error) {
             puts("There was a problem reading the file.");
             break;
 
+        case ERROR_FILEREMOVE:
+            puts("The file couldn't been remove.");
+            break;
+
         default:
             puts("Unkown error.");
             break;

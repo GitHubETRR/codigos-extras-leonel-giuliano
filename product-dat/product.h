@@ -19,3 +19,4 @@ typedef struct {
 void newProduct(FILE*);
 product_t *readProduct(FILE*, uint16_t);
 void printProduct(FILE*);
+void delProduct(FILE*, const char*);
