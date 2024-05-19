@@ -1,33 +1,8 @@
-#include <stdio.h>
+#include <string.h>
 
+#include "main.h"
 #include "product.h"
 #include "error.h"
-
-#define FILE_PRED "./output/product.dat"
-enum {
-    ARGC_PRED = 1,
-    ARGC_FILE
-};
-// Doesn't need the file path
-enum {
-    ARGV_PATH,
-    ARGV_FILE
-};
-
-typedef enum {
-    MENU_START,
-    MENU_ADD,
-    MENU_PRINT_PRODUCT,
-    MENU_DEL_PRODUCT,
-    MENU_END
-}menuState_t;
-// All the states of the menu
-
-void menu(menuState_t *_State, FILE *_Stream, const char *_FilePath);
-void menuAdd(FILE *_Stream, const char *_FilePath);
-void menuPrintProduct(FILE *_Stream, const char *_FilePath);
-void menuDelProduct(FILE *_Stream, const char *_FilePath);
-void menuEnd(FILE *_Stream, const char *_FilePath);
 
 int main(int argc, char *argv[]) {
     if(argc > ARGC_FILE) errorHandler(ERROR_ARGC);
@@ -64,6 +39,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
     };
     // Function to work as a switch case
 
+    printf("\n--------------------\n\n");
     printf("%u. Add a product.\n", MENU_ADD);
     printf("%u. Print a selected product.\n", MENU_PRINT_PRODUCT);
     printf("%u. Delete a selected product.\n", MENU_DEL_PRODUCT);
@@ -72,6 +48,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
 
     printf("\nChoose an option: ");
     scanf(" %u", state);
+    printf("\n");
 
     if(*state > MENU_START && *state <= MENU_END)
         menuF[*state - 1](productDat, filePath);
@@ -81,20 +58,56 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
 void menuAdd(FILE *productDat, const char *filePath) {
     (void)filePath;
     // Ignores the parameter for the function
+
+    puts("\t-----\tADD PRODUCT\t-----");
     newProduct(productDat);
 }
 
 void menuPrintProduct(FILE *productDat, const char *filePath) {
     (void)filePath;
+    // Ignores the parameter for the function
+
+    puts("\t-----\tPRINT PRODUCT\t-----");
     printProduct(productDat);
 }
 
 void menuDelProduct(FILE *productDat, const char *filePath) {
-    setDelProduct(productDat, filePath);
+    if(choice("Do you really meant to delete a product?")) {
+        puts("\t-----\tDELETE PRODUCT\t-----");
+        setDelProduct(productDat, filePath);
+    } else puts("Returning to the menu...");
 }
 
 void menuEnd(FILE *productDat, const char *filePath) {
     (void)productDat;
     (void)filePath;
+    // Ignores the parameters for the function
+
     puts("Closing program...");
+}
+
+uint8_t choice(const char *str, ...) {
+    va_list ap;
+    va_start(ap, str);
+    // Initialize the variable arguments list
+
+    uint8_t bool = 0;
+    char option;
+
+    if(strchr(str, '%') != NULL) vprintf(str, ap);
+    else {
+        (void)ap;
+
+        printf("%s", str);
+    }
+    // In case is a simple str, it doesn't use va_list
+
+    printf("\t[y/n]: ");
+    scanf(" %c", &option);
+    printf("\n");
+
+    if(option == 'y' || option == 'Y') bool = 1;
+
+    va_end(ap);
+    return bool;
 }

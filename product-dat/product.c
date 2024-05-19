@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "product.h"
+#include "main.h"
 #include "error.h"
 
 void newProduct(FILE *productDat) {
@@ -123,9 +123,17 @@ void setDelProduct(FILE *productDat, const char *filePath) {
     if(!strcmp(tempPath, filePath)) tempPath = "./output/tempFile.dat";
     // In case they are called the same way
 
+    uint8_t exitPrevent = 0;
     uint16_t id;
-    printf("Id of the product: ");
-    scanf(" %hu", &id);
+    uint8_t option = 0;
+
+    while(option == 0 && exitPrevent != CHOICE_LOOP) {
+        printf("Id of the product: ");
+        scanf(" %hu", &id);
+
+        option = choice("\nDo you want to delete the product id %d?", id);
+        exitPrevent++;
+    }
 
     if((tempFile = fopen(tempPath, "wb+")) == NULL) {
         fclose(productDat);
