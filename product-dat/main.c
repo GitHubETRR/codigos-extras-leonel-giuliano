@@ -98,7 +98,7 @@ uint8_t choice(const char *str, ...) {
     else {
         (void)ap;
 
-        printf("%s", str);
+        printf(str);
     }
     // In case is a simple str, it doesn't use va_list
 
