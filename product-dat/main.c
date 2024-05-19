@@ -34,6 +34,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
     void (*menuF[MENU_END])(FILE*, const char*) = {
         menuAdd,
         menuPrintProduct,
+        menuPrintFile,
         menuDelProduct,
         menuEnd
     };
@@ -42,6 +43,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
     printf("\n--------------------\n\n");
     printf("%u. Add a product.\n", MENU_ADD);
     printf("%u. Print a selected product.\n", MENU_PRINT_PRODUCT);
+    printf("%u. Print all the products.\n", MENU_PRINT_FILE);
     printf("%u. Delete a selected product.\n", MENU_DEL_PRODUCT);
     printf("%u. Exit the code.\n", MENU_END);
     // Prints all the options of the program
@@ -69,6 +71,13 @@ void menuPrintProduct(FILE *productDat, const char *filePath) {
 
     puts("\t-----\tPRINT PRODUCT\t-----");
     printProduct(productDat);
+}
+
+void menuPrintFile(FILE *productDat, const char *filePath) {
+    (void)filePath;
+    // Ignores the parameter for the function
+
+    printFile(productDat);
 }
 
 void menuDelProduct(FILE *productDat, const char *filePath) {

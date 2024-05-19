@@ -59,6 +59,7 @@ void printProduct(FILE *productDat) {
 
     printf("Id of the product: ");
     scanf(" %hu", &id);
+    printf("\n");
     // Scan the id of the product
 
     rewind(productDat);
@@ -74,11 +75,23 @@ void printProduct(FILE *productDat) {
     // Searches for the product until the file ends
 
     if(product != NULL) {
-        printf("%d\n", product->id);
-        printf("%s\n", product->productName);
-        printf("%d\n", product->price);
+        printf("Product: %s\n", product->productName);
+        printf("Price: $%d\n", product->price);
 
         free(product);
+    } else printf("The product id %d wasn't found.\n", id);
+}
+
+void printFile(FILE *productDat) {
+    uint16_t exitPrevent = 0;
+    product_t product;
+
+    rewind(productDat);
+    while(fread(&product, sizeof(product_t), 1, productDat) && exitPrevent != READ_LOOP) {
+        printf("Id: %d\n", product.id);
+        printf("Product: %s\n", product.productName);
+        printf("Price: $%d\n", product.price);
+        printf("++++++++++++++++++++\n");
     }
 }
 
