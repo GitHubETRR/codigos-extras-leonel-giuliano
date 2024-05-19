@@ -35,6 +35,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
         menuAdd,
         menuPrintProduct,
         menuPrintFile,
+        menuBackup,
         menuDelProduct,
         menuEnd
     };
@@ -44,6 +45,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
     printf("%u. Add a product.\n", MENU_ADD);
     printf("%u. Print a selected product.\n", MENU_PRINT_PRODUCT);
     printf("%u. Print all the products.\n", MENU_PRINT_FILE);
+    printf("%u. Create a backup of your file.\n", MENU_BACKUP);
     printf("%u. Delete a selected product.\n", MENU_DEL_PRODUCT);
     printf("%u. Exit the code.\n", MENU_END);
     // Prints all the options of the program
@@ -78,6 +80,12 @@ void menuPrintFile(FILE *productDat, const char *filePath) {
     // Ignores the parameter for the function
 
     printFile(productDat);
+}
+
+void menuBackup(FILE *productDat, const char *filePath) {
+    (void)filePath;
+
+    backup(productDat);
 }
 
 void menuDelProduct(FILE *productDat, const char *filePath) {

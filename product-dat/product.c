@@ -12,7 +12,7 @@ void newProduct(FILE *productDat) {
     printf("Id of the product: ");
     scanf(" %hu", &(product.id));
     printf("Product: ");
-    scanf(" %[^\n]", tempName);
+    scanf(" %29[^\n]", tempName);
     printf("Price: $");
     scanf(" %u", &(product.price));
     // Get the data for the product
@@ -92,6 +92,40 @@ void printFile(FILE *productDat) {
         printf("Product: %s\n", product.productName);
         printf("Price: $%d\n", product.price);
         printf("++++++++++++++++++++\n");
+
+        exitPrevent++;
+    }
+}
+
+void backup(FILE *productDat) {
+    uint16_t exitPrevent = 0;
+    FILE *backFile;
+    product_t product;
+    char backPath[PATH_LENGTH];
+
+    printf("Write the path of the backup file: ");
+    scanf(" %259s", backPath);
+    // The output of the backup is selected
+
+    size_t pathLength = strlen(backPath);
+    if(strcmp(&backPath[pathLength - strlen(FILE_TYPE)], FILE_TYPE))
+        printf("The backup has to correspond with the '%s' type file.\n", FILE_TYPE);
+    // In case the file isn't .dat, it doesn't create the backup
+    else {
+        if((backFile = fopen(backPath, "wb")) == NULL) {
+            fclose(productDat);
+
+            errorHandler(ERROR_FILE);
+        }
+
+        while(fread(&product, sizeof(product_t), 1, productDat) && exitPrevent != READ_LOOP) {
+            fwrite(&product, sizeof(product_t), 1, backFile);
+
+            exitPrevent++;
+        }
+
+        fflush(backFile);
+        fclose(backFile);
     }
 }
 

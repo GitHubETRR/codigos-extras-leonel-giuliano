@@ -20,5 +20,6 @@ void newProduct(FILE *_Stream);
 product_t *readProduct(FILE *_Stream, uint16_t _Id);
 void printProduct(FILE *_Stream);
 void printFile(FILE *_Stream);
+void backup(FILE *_Stream);
 void delProduct(FILE *_FileStream, FILE *_TempStream, const char *_FilePath, uint16_t _Id);
 void setDelProduct(FILE *_Stream, const char *_FileName);
