@@ -13,6 +13,7 @@ void newProduct(FILE *productDat) {
     scanf(" %hu", &(product.id));
     printf("Product: ");
     scanf(" %29[^\n]", tempName);
+    // Only takes NAME_LENGTH - 1 chars in case of an error
     printf("Price: $");
     scanf(" %u", &(product.price));
     // Get the data for the product
@@ -34,17 +35,12 @@ product_t *readProduct(FILE *productDat, uint16_t id) {
     }
 
     product_t productRead;
-    if(fread(&productRead, sizeof(product_t), 1, productDat) == 1) {
-        if(productRead.id == id) *productReturn = productRead;
-        else productReturn = NULL;
-    } else {
-        free(productReturn);
-        fclose(productDat);
+    
+    fread(&productRead, sizeof(product_t), 1, productDat);
 
-        errorHandler(ERROR_FILEREAD);
-    }
+    if(productRead.id == id) *productReturn = productRead;
+    else productReturn = NULL;
     // Read the product from a position
-    // In case there was a problem reading it, exit the code
 
     return productReturn;
     // Retuns the product in case it was found

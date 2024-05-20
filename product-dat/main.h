@@ -24,6 +24,7 @@ typedef enum {
     MENU_PRINT_FILE,
     MENU_BACKUP,
     MENU_DEL_PRODUCT,
+    MENU_DEL_LIST,
     MENU_END
 }menuState_t;
 // All the states of the menu
@@ -34,5 +35,6 @@ void menuPrintProduct(FILE *_Stream, const char *_FilePath);
 void menuPrintFile(FILE *_Stream, const char *_FilePath);
 void menuBackup(FILE *_Stream, const char *_FilePath);
 void menuDelProduct(FILE *_Stream, const char *_FilePath);
+void menuDelList(FILE *_Stream, const char *_FilePath);
 void menuEnd(FILE *_Stream, const char *_FilePath);
 uint8_t choice(const char *_Message, ...);

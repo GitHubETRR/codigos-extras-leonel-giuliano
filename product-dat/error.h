@@ -7,7 +7,6 @@ typedef enum {
     ERROR_ARGC,
     ERROR_FILE,
     ERROR_FILEREMOVE,
-    ERROR_FILEREAD,
     ERROR_MEMORY
 }errorEvent_t;
 // Every possible error

@@ -37,6 +37,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
         menuPrintFile,
         menuBackup,
         menuDelProduct,
+        menuDelList,
         menuEnd
     };
     // Function to work as a switch case
@@ -47,6 +48,7 @@ void menu(menuState_t *state, FILE *productDat, const char *filePath) {
     printf("%u. Print all the products.\n", MENU_PRINT_FILE);
     printf("%u. Create a backup of your file.\n", MENU_BACKUP);
     printf("%u. Delete a selected product.\n", MENU_DEL_PRODUCT);
+    printf("%u. Delete all the products inside of the file.\n", MENU_DEL_LIST);
     printf("%u. Exit the code.\n", MENU_END);
     // Prints all the options of the program
 
@@ -86,6 +88,13 @@ void menuBackup(FILE *productDat, const char *filePath) {
     (void)filePath;
 
     backup(productDat);
+}
+
+void menuDelList(FILE *productDat, const char *filePath) {
+    if(choice("Are you sure you want to empty the file?"))
+        if((productDat = freopen(filePath, "wb+", productDat)) == NULL)
+            errorHandler(ERROR_FILE);
+    else puts("Returning to the menu...");
 }
 
 void menuDelProduct(FILE *productDat, const char *filePath) {
