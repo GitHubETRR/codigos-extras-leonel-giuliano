@@ -81,6 +81,7 @@ void menuPrintFile(FILE *productDat, const char *filePath) {
     (void)filePath;
     // Ignores the parameter for the function
 
+    puts("\t-----\tPRINT LIST\t-----");
     printFile(productDat);
 }
 
