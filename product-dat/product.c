@@ -14,6 +14,9 @@ void newProduct(FILE *productDat) {
     printf("Product: ");
     scanf(" %29[^\n]", tempName);
     // Only takes NAME_LENGTH - 1 chars in case of an error
+    fflush(stdin);
+    // Makes sure that the data doesn't get save and
+    // goes to another scan in case the text is longer
     printf("Price: $");
     scanf(" %u", &(product.price));
     // Get the data for the product
@@ -101,6 +104,7 @@ void backup(FILE *productDat) {
 
     printf("Write the path of the backup file: ");
     scanf(" %259s", backPath);
+    fflush(stdin);
     // The output of the backup is selected
 
     size_t pathLength = strlen(backPath);

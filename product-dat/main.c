@@ -91,10 +91,10 @@ void menuBackup(FILE *productDat, const char *filePath) {
 }
 
 void menuDelList(FILE *productDat, const char *filePath) {
-    if(choice("Are you sure you want to empty the file?"))
+    if(choice("Are you sure you want to empty the file?")) {
         if((productDat = freopen(filePath, "wb+", productDat)) == NULL)
             errorHandler(ERROR_FILE);
-    else puts("Returning to the menu...");
+    } else puts("Returning to the menu...");
 }
 
 void menuDelProduct(FILE *productDat, const char *filePath) {
